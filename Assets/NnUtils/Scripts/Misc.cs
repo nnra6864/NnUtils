@@ -88,9 +88,29 @@ namespace NnUtils.Scripts
             target = sender.StartCoroutine(routine);
         }
 
+        public static void StopCoroutine(MonoBehaviour sender, ref Coroutine target)
+        {
+            if (target != null) sender.StopCoroutine(target);
+            target = null;
+        }
+
         public static int RandomInvert => Random.Range(0, 2) == 0 ? 1 : -1;
 
         public static Vector2 AbsV2(Vector2 input) => new(Mathf.Abs(input.x), Mathf.Abs(input.y));
         public static Vector3 AbsV3(Vector3 input) => new(Mathf.Abs(input.x), Mathf.Abs(input.y), Mathf.Abs(input.z));
+
+        /// <summary>
+        /// Returns position of the pointer.
+        /// <br/>
+        /// If the screen is touched it will return the position of the touchIndex(0 by default).
+        /// </summary>
+        /// <param name="touchIndex"></param>
+        /// <returns></returns>
+        public static Vector2 GetPointerPos(int touchIndex = 0)
+        {
+            Vector2 pos = Input.mousePosition;
+            if (Input.touchCount > touchIndex) pos = Input.GetTouch(touchIndex).position;
+            return pos;
+        }
     }
 }
