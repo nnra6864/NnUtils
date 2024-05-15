@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.NnUtils.Scripts
+namespace NnUtils.Scripts
 {
     public class Easings
     {

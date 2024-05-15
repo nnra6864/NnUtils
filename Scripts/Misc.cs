@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Assets.NnUtils.Scripts;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -112,5 +111,7 @@ namespace NnUtils.Scripts
             if (Input.touchCount > touchIndex) pos = Input.GetTouch(touchIndex).position;
             return pos;
         }
+        
+        public static Quaternion VectorToQuaternion(Vector3 vec) => Quaternion.Euler(vec.x, vec.y, vec.z);
     }
 }
