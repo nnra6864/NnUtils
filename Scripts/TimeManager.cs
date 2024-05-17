@@ -9,6 +9,10 @@ namespace NnUtils.Scripts
     public class TimeManager : MonoBehaviour
     {
         private float _fixedTimeStep;
+        /// <summary>
+        /// Set to true when the game is paused to pause transitions
+        /// </summary>
+        public bool IsPaused;
         private Coroutine _changeTimeScaleRoutine;
         private void Awake() => _fixedTimeStep = Time.fixedDeltaTime;
         
@@ -53,6 +57,7 @@ namespace NnUtils.Scripts
             float lerpPos = 0;
             while (lerpPos < 1)
             {
+                if (IsPaused) { yield return null; continue; }
                 var t = Misc.UpdateLerpPos(ref lerpPos, time, true, easing);
                 TimeScale = Mathf.LerpUnclamped(startTimeScale, timeScale, t);
                 yield return null;
@@ -66,6 +71,7 @@ namespace NnUtils.Scripts
             float lerpPos = 0;
             while (lerpPos < 1)
             {
+                if (IsPaused) { yield return null; continue; }
                 var t = curve.Evaluate(Misc.UpdateLerpPos(ref lerpPos, time, true));
                 TimeScale = Mathf.LerpUnclamped(startTimeScale, timeScale, t);
                 yield return null;
@@ -87,11 +93,12 @@ namespace NnUtils.Scripts
             {
                 var startTimeScale = TimeScale;
                 var timeScale = timeScales[i];
-                var time = times.Length - 1 < i ? 0 : timeScales[i];
+                var time = times.Length - 1 < i ? 0 : times[i];
                 var easing = easings.Length - 1 < i ? Easings.Types.None : easings[i];
                 float lerpPos = 0;
                 while (lerpPos < 1)
                 {
+                    if (IsPaused) { yield return null; continue; }
                     var t = Misc.UpdateLerpPos(ref lerpPos, time, true, easing);
                     TimeScale = Mathf.LerpUnclamped(startTimeScale, timeScale, t);
                     yield return null;
@@ -107,11 +114,12 @@ namespace NnUtils.Scripts
             {
                 var startTimeScale = TimeScale;
                 var timeScale = timeScales[i];
-                var time = times.Length - 1 < i ? 0 : timeScales[i];
+                var time = times.Length - 1 < i ? 0 : times[i];
                 var curve = curves.Length - 1 < i ? new AnimationCurve() : curves[i];
                 float lerpPos = 0;
                 while (lerpPos < 1)
                 {
+                    if (IsPaused) { yield return null; continue; }
                     var t = curve.Evaluate(Misc.UpdateLerpPos(ref lerpPos, time, true));
                     TimeScale = Mathf.LerpUnclamped(startTimeScale, timeScale, t);
                     yield return null;
