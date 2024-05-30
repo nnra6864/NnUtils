@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
 namespace NnUtils.Scripts
 {
@@ -80,14 +82,20 @@ namespace NnUtils.Scripts
             }
             return component;
         }
+
+        public static void StartRoutineIf(this MonoBehaviour sender, ref Coroutine target, IEnumerator routine, Func<bool> startIf)
+        {
+            if (!startIf()) return;
+            target = sender.StartCoroutine(routine);
+        }
         
-        public static void RestartCoroutine(MonoBehaviour sender, ref Coroutine target, IEnumerator routine)
+        public static void RestartRoutine(this MonoBehaviour sender, ref Coroutine target, IEnumerator routine)
         {
             if (target != null) sender.StopCoroutine(target);
             target = sender.StartCoroutine(routine);
         }
 
-        public static void StopCoroutine(MonoBehaviour sender, ref Coroutine target)
+        public static void StopRoutine(this MonoBehaviour sender, ref Coroutine target)
         {
             if (target != null) sender.StopCoroutine(target);
             target = null;
@@ -113,5 +121,24 @@ namespace NnUtils.Scripts
         }
         
         public static Quaternion VectorToQuaternion(Vector3 vec) => Quaternion.Euler(vec.x, vec.y, vec.z);
+
+        public static float RadialSelection()
+        {
+            Vector2 mousePos = Input.mousePosition;
+            Vector2 centerPos = new(Screen.width / 2, Screen.height / 2);
+            var dir = mousePos - centerPos;
+            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
+            angle += angle < 0 ? 360 : 0;
+            return 360 - angle;
+        }
+        
+        public static float RadialSelection(Vector2 centerPos)
+        {
+            Vector2 mousePos = Input.mousePosition;
+            var dir = mousePos - centerPos;
+            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
+            angle += angle < 0 ? 360 : 0;
+            return 360 - angle;
+        }
     }
 }
