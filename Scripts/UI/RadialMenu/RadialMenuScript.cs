@@ -11,6 +11,7 @@ namespace NnUtils.Scripts.UI.RadialMenu
     public class RadialMenuScript : NnBehaviour
     {
         [Header("Components")]
+        [SerializeField] private InputActionAsset _nnActions;
         [SerializeField] private RectTransform _menu;
         [SerializeField] private RectTransform _itemsParent;
         [SerializeField] private TMP_Text _hoveredText;
@@ -36,10 +37,10 @@ namespace NnUtils.Scripts.UI.RadialMenu
         [SerializeField] private AnimationParams _openItemAnimationParams;
         [SerializeField] private AnimationParams _closeItemAnimationParams;
 
-        private Stack<RadialMenuItem> _radialMenuItemsStack = new();
-        private List<RadialMenuItemScript> _radialMenuItems = new();
         private InputAction _selectAction;
         private InputAction _backAction;
+        private Stack<RadialMenuItem> _radialMenuItemsStack = new();
+        private List<RadialMenuItemScript> _radialMenuItems = new();
 
         #region Properties
         private float _anglePerItem;
@@ -118,8 +119,11 @@ namespace NnUtils.Scripts.UI.RadialMenu
         
         private void Awake()
         {
-            _selectAction = InputSystem.actions.FindActionMap("Editor").FindAction("MenuSelect");
-            _backAction = InputSystem.actions.FindActionMap("Editor").FindAction("MenuBack");
+            _nnActions.Enable();
+            var uiMap = _nnActions.FindActionMap("UI");
+            _selectAction = uiMap.FindAction("Select");
+            _backAction = uiMap.FindAction("Back");
+            
             if (_animateOnOpen)
             {
                 transform.localPosition = _startPosition;
