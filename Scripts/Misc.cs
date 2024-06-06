@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mono.Cecil.Cil;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
@@ -66,6 +67,14 @@ namespace NnUtils.Scripts
             return Easings.Ease(lerpPos, easingType);
         }
 
+        /// <summary>
+        /// Reverses the lerp position and returns the eased value
+        /// </summary>
+        /// <param name="lerpPos"></param>
+        /// <param name="lerpTime"></param>
+        /// <param name="unscaled"></param>
+        /// <param name="easingType"></param>
+        /// <returns></returns>
         public static float ReverseLerpPos(ref float lerpPos, float lerpTime = 1, bool unscaled = false, Easings.Types easingType = Easings.Types.None)
         {
             if (lerpTime == 0) lerpPos = 0;
