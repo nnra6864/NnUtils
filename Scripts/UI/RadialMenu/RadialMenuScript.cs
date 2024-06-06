@@ -169,6 +169,7 @@ namespace NnUtils.Scripts.UI.RadialMenu
             }
 
             foreach (var item in _radialMenuItems) item.Create();
+            HoveredIndex = -1; //Needed to refresh the selected item
         }
 
         private void Selection()
