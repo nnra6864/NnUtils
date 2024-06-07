@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace NnUtils.Scripts.UI.RadialMenu
@@ -11,7 +10,6 @@ namespace NnUtils.Scripts.UI.RadialMenu
     public class RadialMenuScript : NnBehaviour
     {
         [Header("Components")]
-        [SerializeField] private InputActionAsset _nnActions;
         [SerializeField] private RectTransform _menu;
         [SerializeField] private RectTransform _itemsParent;
         [SerializeField] private TMP_Text _hoveredText;
@@ -37,8 +35,6 @@ namespace NnUtils.Scripts.UI.RadialMenu
         [SerializeField] private AnimationParams _openItemAnimationParams;
         [SerializeField] private AnimationParams _closeItemAnimationParams;
 
-        private InputAction _selectAction;
-        private InputAction _backAction;
         private Stack<RadialMenuItem> _radialMenuItemsStack = new();
         private List<RadialMenuItemScript> _radialMenuItems = new();
 
@@ -119,11 +115,6 @@ namespace NnUtils.Scripts.UI.RadialMenu
         
         private void Awake()
         {
-            _nnActions.Enable();
-            var uiMap = _nnActions.FindActionMap("UI");
-            _selectAction = uiMap.FindAction("Select");
-            _backAction = uiMap.FindAction("Back");
-            
             if (_animateOnOpen)
             {
                 transform.localPosition = _startPosition;
@@ -140,7 +131,7 @@ namespace NnUtils.Scripts.UI.RadialMenu
         private void Update()
         {
             Selection();
-            if (_backAction.WasReleasedThisFrame()) Back();
+            if (Input.GetKeyDown(KeyCode.Escape)) Back();
         }
 
         public void Populate(RadialMenuContent content)
@@ -177,8 +168,8 @@ namespace NnUtils.Scripts.UI.RadialMenu
             if (ItemCount == 0 || _closeRoutine != null) return;
             var angle = Misc.RadialSelection(_menu.position);
             HoveredIndex = Mathf.FloorToInt(angle / _anglePerItem);
-            if (_selectAction.IsPressed()) SelectedIndex = HoveredIndex;
-            if (_selectAction.WasReleasedThisFrame()) Click();
+            if (Input.GetKeyDown(KeyCode.Mouse0)) SelectedIndex = HoveredIndex;
+            if (Input.GetKeyUp(KeyCode.Mouse0)) Click();
         }
 
         private void Click()
