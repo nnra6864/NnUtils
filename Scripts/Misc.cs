@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Mono.Cecil.Cil;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
@@ -10,14 +9,9 @@ namespace NnUtils.Scripts
 {
     public static class Misc
     {
-        public static float LimitVelocity(float speed, float currentVelocity, float maxSpeed)
-        {
-            if (speed + currentVelocity > maxSpeed)
-                return Mathf.Clamp(maxSpeed - currentVelocity, 0, maxSpeed);
-            else if (speed + currentVelocity < -maxSpeed)
-                return Mathf.Clamp(-maxSpeed - currentVelocity, -maxSpeed, 0);
-            else return speed;
-        }
+        public static float LimitVelocity(float speed, float currentVelocity, float maxSpeed) =>
+            speed + currentVelocity > maxSpeed ? Mathf.Clamp(maxSpeed - currentVelocity, 0, maxSpeed) :
+            speed + currentVelocity < -maxSpeed ? Mathf.Clamp(-maxSpeed - currentVelocity, -maxSpeed, 0) : speed;
 
         #region Is Pointer Over UI
         public static bool IsPointerOverUI => IsPointerOverUIElement(GetEventSystemRaycastResults());
