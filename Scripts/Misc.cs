@@ -13,6 +13,20 @@ namespace NnUtils.Scripts
             speed + currentVelocity > maxSpeed ? Mathf.Clamp(maxSpeed - currentVelocity, 0, maxSpeed) :
             speed + currentVelocity < -maxSpeed ? Mathf.Clamp(-maxSpeed - currentVelocity, -maxSpeed, 0) : speed;
 
+        public static Vector2 CapVelocityDelta(Vector2 currentVelocity, Vector2 deltaVelocity, float maxSpeed)
+        {
+            var newVel = currentVelocity + deltaVelocity;
+    
+            if (newVel.magnitude > maxSpeed && newVel.magnitude > currentVelocity.magnitude)
+            {
+                var directionOfChange = (newVel - currentVelocity).normalized;
+                var maxChange = Mathf.Max(maxSpeed - currentVelocity.magnitude, 0);
+                return directionOfChange * maxChange;
+            }
+
+            return deltaVelocity;
+        }
+        
         #region Is Pointer Over UI
         public static bool IsPointerOverUI => IsPointerOverUIElement(GetEventSystemRaycastResults());
         private static bool IsPointerOverUIElement(List<RaycastResult> eventSystemRaycastResults)
@@ -79,10 +93,7 @@ namespace NnUtils.Scripts
         public static T GetOrAddComponent<T>(this GameObject gameObject) where T : Component
         {
             T component = gameObject.GetComponent<T>();
-            if (component == null)
-            {
-                component = gameObject.AddComponent<T>();
-            }
+            if (component == null) component = gameObject.AddComponent<T>();
             return component;
         }
 

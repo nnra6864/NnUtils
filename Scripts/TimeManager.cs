@@ -10,12 +10,12 @@ namespace NnUtils.Scripts
     public class TimeManager : NnBehaviour
     {
         private float _fixedTimeStep;
+        private Coroutine _changeTimeScaleRoutine;
+        
         /// <summary>
         /// Set to true when the game is paused to pause transitions
         /// </summary>
         public bool IsPaused;
-        private Coroutine _changeTimeScaleRoutine;
-        private void Awake() => _fixedTimeStep = Time.fixedDeltaTime;
         
         /// <summary>
         /// Set via <see cref="ChangeTimeScale(float, float)"/> function
@@ -45,6 +45,8 @@ namespace NnUtils.Scripts
         /// </summary>
         public Action OnTimeScalesTransitioned;
         
+        private void Awake() => _fixedTimeStep = Time.fixedDeltaTime;
+        
         public void ChangeTimeScale(float timeScale, float time = 0)
             => RestartRoutine(ref _changeTimeScaleRoutine, ChangeTimeScaleRoutine(timeScale, time));
         public void ChangeTimeScale(float timeScale, float time, Easings.Types easing)
@@ -59,7 +61,7 @@ namespace NnUtils.Scripts
             while (lerpPos < 1)
             {
                 if (IsPaused) { yield return null; continue; }
-                var t = curve == null ? Misc.UpdateLerpPos(ref lerpPos, time, true) : curve.Evaluate(Misc.UpdateLerpPos(ref lerpPos, time, true));
+                var t = curve?.Evaluate(Misc.UpdateLerpPos(ref lerpPos, time, true)) ?? Misc.UpdateLerpPos(ref lerpPos, time, true);
                 TimeScale = Mathf.LerpUnclamped(startTimeScale, timeScale, t);
                 yield return null;
             }
