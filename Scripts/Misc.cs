@@ -102,6 +102,12 @@ namespace NnUtils.Scripts
             if (!startIf()) return;
             target = sender.StartCoroutine(routine);
         }
+
+        public static void StartNullRoutine(this MonoBehaviour sender, ref Coroutine target, IEnumerator routine)
+        {
+            if (target != null) return;
+            target = sender.StartCoroutine(routine);
+        }
         
         public static void RestartRoutine(this MonoBehaviour sender, ref Coroutine target, IEnumerator routine)
         {
