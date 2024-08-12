@@ -1410,7 +1410,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "5138666b797140d4a58a39b38079bb15",
     "m_Id": 0,
-    "m_DisplayName": "EmissionStrength",
+    "m_DisplayName": "EmissionIntensity",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -1739,10 +1739,10 @@
     "m_Guid": {
         "m_GuidSerialized": "3c6834fc-d35a-45a0-b8dc-b3024d791c05"
     },
-    "m_Name": "EmissionStrength",
+    "m_Name": "EmissionIntensity",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "EmissionStrength",
-    "m_DefaultReferenceName": "_EmissionStrength",
+    "m_RefNameGeneratedByDisplayName": "EmissionIntensity",
+    "m_DefaultReferenceName": "_EmissionIntensity",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,

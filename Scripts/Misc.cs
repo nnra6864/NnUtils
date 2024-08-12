@@ -82,12 +82,14 @@ namespace NnUtils.Scripts
         /// <param name="lerpTime"></param>
         /// <param name="unscaled"></param>
         /// <param name="easingType"></param>
+        /// <param name="invertEasing"></param>
         /// <returns></returns>
-        public static float ReverseLerpPos(ref float lerpPos, float lerpTime = 1, bool unscaled = false, Easings.Types easingType = Easings.Types.None)
+        public static float ReverseLerpPos(ref float lerpPos, float lerpTime = 1, bool unscaled = false, Easings.Types easingType = Easings.Types.None, bool invertEasing = true)
         {
             if (lerpTime == 0) lerpPos = 0;
             else lerpPos = Mathf.Clamp01(lerpPos -= (unscaled ? Time.unscaledDeltaTime : Time.deltaTime) / lerpTime);
-            return Easings.Ease(lerpPos, easingType);
+            var t = Easings.Ease(invertEasing ? 1 - lerpPos : lerpPos, easingType);
+            return invertEasing ? 1 - t : t;
         }
         
         public static T GetOrAddComponent<T>(this GameObject gameObject) where T : Component
