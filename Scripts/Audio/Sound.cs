@@ -11,7 +11,7 @@ namespace NnUtils.Scripts.Audio
         public AudioClip Clip;
         public float Volume = 1;
         public Vector2 PitchRange = Vector2.one;
-        public bool Unscaled = false;
+        public bool Unscaled;
         public bool Loop;
         public bool FadeIn;
         public float FadeInTime = 1;

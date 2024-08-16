@@ -10,9 +10,9 @@ namespace NnUtils.Scripts.Audio
         private Sound _sound;
         private AudioSource _source;
         private float _pitch;
-        private bool _destroyOnFinish;
+        private bool _destroy, _destroySource, _destroyObject;
 
-        public void Init(Sound sound, AudioSource source = null, bool destroyOnFinish = true)
+        public void Init(Sound sound, AudioSource source = null, bool destroy = false, bool destroySource = false, bool destroyObject = true)
         {
             _sound = sound;
             _pitch = Random.Range(sound.PitchRange.x, sound.PitchRange.y);
@@ -23,11 +23,13 @@ namespace NnUtils.Scripts.Audio
             _source.volume = _sound.Volume;
             _source.pitch = _pitch;
             _source.loop = _sound.Loop;
-            _destroyOnFinish = destroyOnFinish;
+            _destroy = destroy;
+            _destroySource = destroySource;
+            _destroyObject = destroyObject;
             
             if (_sound.FadeIn) FadeIn();
             if (_sound.FadeOut) FadeOut();
-            if (_destroyOnFinish) StartCoroutine(DestroyRoutine());
+            StartCoroutine(DestroyRoutine());
             if (!_sound.Unscaled) TimeManager.OnTimeScaleChanged += OnTimeScaleChanged;
         }
 
@@ -86,7 +88,9 @@ namespace NnUtils.Scripts.Audio
         private IEnumerator DestroyRoutine()
         {
             yield return new WaitForSecondsWhileNot(_sound.Clip.length / _pitch + 1, () => !_source.isPlaying);
-            Destroy(gameObject);
+            if (_destroy) Destroy(this);
+            if (_destroySource) Destroy(_source);
+            if (_destroyObject) Destroy(gameObject);
         }
 
         private void OnDestroy()
