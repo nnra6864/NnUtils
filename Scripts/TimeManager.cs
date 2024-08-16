@@ -29,13 +29,13 @@ namespace NnUtils.Scripts
                 if (value == Time.timeScale) return;
                 Time.timeScale = value;
                 Time.fixedDeltaTime = _fixedTimeStep * TimeScale;
-                OnTimeScaleChanged?.Invoke();
+                OnTimeScaleChanged?.Invoke(TimeScale);
             }
         }
         /// <summary>
         /// Invoked on every TimeScale change
         /// </summary>
-        public Action OnTimeScaleChanged;
+        public Action<float> OnTimeScaleChanged;
         /// <summary>
         /// Invoked when TimeScale reached the target value
         /// </summary>

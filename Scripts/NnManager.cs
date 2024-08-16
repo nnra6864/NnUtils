@@ -1,6 +1,4 @@
 using NnUtils.Scripts.Audio;
-using Player;
-using Unity.Cinemachine;
 using UnityEngine;
 
 namespace NnUtils.Scripts
@@ -12,32 +10,35 @@ namespace NnUtils.Scripts
         {
             get
             {
-                if (_instance == null) 
-                    _instance = new GameObject("NnManager", typeof(NnManager)).GetComponent<NnManager>();
+                if (_instance != null) return _instance;
+                
+                _instance = FindFirstObjectByType<NnManager>();
+                var go = new GameObject("NnManager");
+                if (_instance == null) _instance = go.AddComponent<NnManager>();
+                
                 return _instance;
-            }
-            
-            private set
-            {
-                if (_instance != null && _instance != value)
-                {
-                    Destroy(value.gameObject);
-                    return;
-                }
-                _instance = value;
             }
         }
         
-        private void Awake() => Instance = GetComponent<NnManager>();
-    
-        private static GameObject GameObject => Instance.gameObject;
+        private void Awake()
+        {
+            if (_instance == null)
+            {
+                _instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else if (_instance != this)
+            {
+                Destroy(gameObject);
+            }
+        }
 
         [SerializeField] private TimeManager _timeManager;
         public static TimeManager TimeManager =>
-            Instance._timeManager ?? (Instance._timeManager = GameObject.GetOrAddComponent<TimeManager>());
+            Instance._timeManager ?? (Instance._timeManager = Instance.gameObject.GetOrAddComponent<TimeManager>());
     
         [SerializeField] private AudioManager _audioManager;
         public static AudioManager AudioManager =>
-            Instance._audioManager ?? (Instance._audioManager = GameObject.GetOrAddComponent<AudioManager>());
+            Instance._audioManager ?? (Instance._audioManager = Instance.gameObject.GetOrAddComponent<AudioManager>());
     }
 }
