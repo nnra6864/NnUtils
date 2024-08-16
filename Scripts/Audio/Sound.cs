@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace NnUtils.Scripts.Audio
 {
     [CreateAssetMenu(fileName = "Sound", menuName = "NnUtils/Sound")]
     public class Sound : ScriptableObject
     {
-        public SoundType Type;
+        public AudioMixerGroup Group;
         public string Name = "Sound";
         public AudioClip Clip;
         public float Volume = 1;

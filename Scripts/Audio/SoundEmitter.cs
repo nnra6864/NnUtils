@@ -18,6 +18,7 @@ namespace NnUtils.Scripts.Audio
             _pitch = Random.Range(sound.PitchRange.x, sound.PitchRange.y);
             _source = source ? source : gameObject.AddComponent<AudioSource>();
             _source.playOnAwake = false;
+            _source.outputAudioMixerGroup = _sound.Group;
             _source.clip = _sound.Clip;
             _source.volume = _sound.Volume;
             _source.pitch = _pitch;
