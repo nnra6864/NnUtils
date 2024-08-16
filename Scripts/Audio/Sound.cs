@@ -9,10 +9,11 @@ namespace NnUtils.Scripts.Audio
         public AudioMixerGroup Group;
         public string Name = "Sound";
         public AudioClip Clip;
-        public float Volume = 1;
+        [Range(0, 1)] public float Volume = 1;
         public Vector2 PitchRange = Vector2.one;
         public bool Unscaled;
         public bool Loop;
+        [Range(0, 1)] public float SpatialBlend;
         public bool FadeIn;
         public float FadeInTime = 1;
         public Easings.Types FadeInEasing = Easings.Types.SineIn;

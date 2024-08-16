@@ -23,6 +23,7 @@ namespace NnUtils.Scripts.Audio
             _source.volume = _sound.Volume;
             _source.pitch = _pitch;
             _source.loop = _sound.Loop;
+            _source.spatialBlend = _sound.SpatialBlend;
             _destroy = destroy;
             _destroySource = destroySource;
             _destroyObject = destroyObject;

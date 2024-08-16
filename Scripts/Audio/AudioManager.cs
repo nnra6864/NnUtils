@@ -26,7 +26,6 @@ namespace NnUtils.Scripts.Audio
         public void Stop(string soundName) => GetEmitter(_emitters, soundName).Stop();
 
         public void PlayAt(string soundName, Vector3 pos) => PlayAt(_sounds.Find(x => x.Name == soundName), pos);
-        
         public void PlayAt(Sound sound, Vector3 pos)
         {
             var emitter = Instantiate(new GameObject(), pos, Quaternion.identity).AddComponent<SoundEmitter>();
