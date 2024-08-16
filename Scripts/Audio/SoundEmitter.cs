@@ -34,7 +34,11 @@ namespace NnUtils.Scripts.Audio
             if (!_sound.Unscaled) TimeManager.OnTimeScaleChanged += OnTimeScaleChanged;
         }
 
-        public void Play() => _source.Play();
+        public void Play()
+        {
+            if (_sound.GetPitchOnPlay) _pitch = Random.Range(_sound.PitchRange.x, _sound.PitchRange.y);
+            _source.Play();
+        }
         public void UnPause() => _source.UnPause();
         public void Pause() => _source.Pause();
         public void Stop() => _source.Stop();
@@ -77,8 +81,20 @@ namespace NnUtils.Scripts.Audio
         private Coroutine _fadeOutRoutine;
         private IEnumerator FadeOutRoutine()
         {
-            if (_sound.FadeOutTime <= 0) yield break;
-            yield return new WaitForSecondsWhileNot(_sound.Clip.length / _pitch - _sound.FadeOutTime, () => !_source.isPlaying);
+            if (_sound.FadeOutTime <= 0)
+            {
+                _source.volume = 0;
+                yield break;
+            }
+
+            var delay = _sound.Clip.length / _pitch - _sound.FadeOutTime;
+            if (delay <= 0)
+            {
+                delay = 0;
+                _sound.FadeOutTime = _sound.Clip.length;
+            }
+            
+            yield return new WaitForSecondsWhileNot(delay, () => !_source.isPlaying);
             ChangeVolume(0, _sound.FadeOutTime, _sound.FadeOutEasing);
         }
         

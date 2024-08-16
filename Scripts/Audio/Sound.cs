@@ -11,6 +11,7 @@ namespace NnUtils.Scripts.Audio
         public AudioClip Clip;
         [Range(0, 1)] public float Volume = 1;
         public Vector2 PitchRange = Vector2.one;
+        public bool GetPitchOnPlay = true;
         public bool Unscaled;
         public bool Loop;
         [Range(0, 1)] public float SpatialBlend;
