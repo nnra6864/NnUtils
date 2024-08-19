@@ -11,13 +11,13 @@ namespace NnUtils.Scripts.Audio
         private void Awake()
         {
             _emitters.Clear();
-            var soundEmitters = Instantiate(new GameObject(), transform).transform;
-            soundEmitters.name = "SoundEmitters";
+            var soundEmitters = new GameObject("SoundEmitters").transform;
+            soundEmitters.SetParent(transform);
             foreach (var sound in _sounds)
             {
-                var emitter = Instantiate(new GameObject(), soundEmitters).AddComponent<SoundEmitter>();
+                var emitter = new GameObject($"{sound.Name}Emitter").AddComponent<SoundEmitter>();
+                emitter.transform.SetParent(soundEmitters);
                 var source = emitter.gameObject.AddComponent<AudioSource>();
-                emitter.gameObject.name = $"{sound.Name}Emitter";
                 emitter.Init(sound, source, false, false, false);
                 _emitters.Add(sound.Name, emitter);
             }
