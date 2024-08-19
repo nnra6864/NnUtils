@@ -36,13 +36,23 @@ namespace NnUtils.Scripts.Audio
 
         public void Play()
         {
-            if (_sound.GetPitchOnPlay) _pitch = Random.Range(_sound.PitchRange.x, _sound.PitchRange.y);
+            if (_sound.GetPitchOnPlay)
+            {
+                _pitch = Random.Range(_sound.PitchRange.x, _sound.PitchRange.y);
+                _source.pitch = _sound.Unscaled ? _pitch : _pitch * Time.timeScale;
+            }
+            _source.Play();
+        }
+        public void Play(float pitch)
+        {
+            _pitch = pitch;
+            _source.pitch = _sound.Unscaled ? _pitch : _pitch * Time.timeScale;
             _source.Play();
         }
         public void UnPause() => _source.UnPause();
         public void Pause() => _source.Pause();
         public void Stop() => _source.Stop();
-
+        
         #region ChangeVolume
         
         public void ChangeVolume(float volume, float time = 1, Easings.Types easing = Easings.Types.SineIn) => 

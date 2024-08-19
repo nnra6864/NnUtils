@@ -21,16 +21,27 @@ namespace NnUtils.Scripts.Audio
         }
 
         public void Play(string soundName) => GetEmitter(_emitters, soundName).Play();
+        public void Play(string soundName, float pitch) => GetEmitter(_emitters, soundName).Play(pitch);
         public void UnPause(string soundName) => GetEmitter(_emitters, soundName).UnPause();
         public void Pause(string soundName) => GetEmitter(_emitters, soundName).Pause();
         public void Stop(string soundName) => GetEmitter(_emitters, soundName).Stop();
 
-        public void PlayAt(string soundName, Vector3 pos) => PlayAt(_sounds.Find(x => x.Name == soundName), pos);
+        public void PlayAt(string soundName, Vector3 pos) =>
+            PlayAt(_sounds.Find(x => x.Name == soundName), pos);
         public void PlayAt(Sound sound, Vector3 pos)
         {
             var emitter = Instantiate(new GameObject(), pos, Quaternion.identity).AddComponent<SoundEmitter>();
             emitter.Init(sound);
             emitter.Play();
+        }
+        
+        public void PlayAt(string soundName, Vector3 pos, float pitch) =>
+            PlayAt(_sounds.Find(x => x.Name == soundName), pos, pitch);
+        public void PlayAt(Sound sound, Vector3 pos, float pitch)
+        {
+            var emitter = Instantiate(new GameObject(), pos, Quaternion.identity).AddComponent<SoundEmitter>();
+            emitter.Init(sound);
+            emitter.Play(pitch);
         }
         
         private SoundEmitter GetEmitter(Dictionary<string, SoundEmitter> emitters, string soundName) =>
