@@ -10,6 +10,7 @@ namespace NnUtils.Scripts.Audio
         private Sound _sound;
         private AudioSource _source;
         private float _pitch;
+        private bool _isPlaying;
         private bool _destroy, _destroySource, _destroyObject;
 
         public void Init(Sound sound, AudioSource source = null, bool destroy = false, bool destroySource = false, bool destroyObject = true)
@@ -42,17 +43,33 @@ namespace NnUtils.Scripts.Audio
                 _source.pitch = _sound.Unscaled ? _pitch : _pitch * Time.timeScale;
             }
             _source.Play();
+            _isPlaying = true;
         }
         public void Play(float pitch)
         {
             _pitch = pitch;
             _source.pitch = _sound.Unscaled ? _pitch : _pitch * Time.timeScale;
             _source.Play();
+            _isPlaying = true;
         }
-        public void UnPause() => _source.UnPause();
-        public void Pause() => _source.Pause();
-        public void Stop() => _source.Stop();
-        
+        public void UnPause()
+        {
+            _source.UnPause();
+            _isPlaying = true;
+        }
+
+        public void Pause()
+        {
+            _source.Pause();
+            _isPlaying = false;
+        }
+
+        public void Stop()
+        {
+            _source.Stop();
+            _isPlaying = false;
+        }
+
         #region ChangeVolume
         
         public void ChangeVolume(float volume, float time = 1, Easings.Types easing = Easings.Types.SineIn) => 
@@ -104,7 +121,7 @@ namespace NnUtils.Scripts.Audio
                 _sound.FadeOutTime = _sound.Clip.length;
             }
             
-            yield return new WaitForSecondsWhileNot(delay, () => !_source.isPlaying);
+            yield return new WaitForSecondsWhileNot(delay, () => !_isPlaying);
             ChangeVolume(0, _sound.FadeOutTime, _sound.FadeOutEasing);
         }
         
@@ -114,7 +131,7 @@ namespace NnUtils.Scripts.Audio
         
         private IEnumerator DestroyRoutine()
         {
-            yield return new WaitForSecondsWhileNot(_sound.Clip.length / _pitch + 1, () => !_source.isPlaying);
+            yield return new WaitForSecondsWhileNot(_sound.Clip.length / _pitch + 1, () => !_isPlaying);
             if (_destroy) Destroy(this);
             if (_destroySource) Destroy(_source);
             if (_destroyObject) Destroy(gameObject);

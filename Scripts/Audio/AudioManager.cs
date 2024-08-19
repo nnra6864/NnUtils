@@ -33,7 +33,8 @@ namespace NnUtils.Scripts.Audio
             PlayAt(_sounds.Find(x => x.Name == soundName), pos);
         public void PlayAt(Sound sound, Vector3 pos)
         {
-            var emitter = Instantiate(new GameObject(), pos, Quaternion.identity).AddComponent<SoundEmitter>();
+            var emitter = new GameObject($"{sound.Name}Emitter").AddComponent<SoundEmitter>();
+            emitter.transform.position = pos;
             emitter.Init(sound);
             emitter.Play();
         }
@@ -42,7 +43,8 @@ namespace NnUtils.Scripts.Audio
             PlayAt(_sounds.Find(x => x.Name == soundName), pos, pitch);
         public void PlayAt(Sound sound, Vector3 pos, float pitch)
         {
-            var emitter = Instantiate(new GameObject(), pos, Quaternion.identity).AddComponent<SoundEmitter>();
+            var emitter = new GameObject($"{sound.Name}Emitter").AddComponent<SoundEmitter>();
+            emitter.transform.position = pos;
             emitter.Init(sound);
             emitter.Play(pitch);
         }
