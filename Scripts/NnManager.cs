@@ -13,9 +13,11 @@ namespace NnUtils.Scripts
                 if (_instance != null) return _instance;
                 
                 _instance = FindFirstObjectByType<NnManager>();
+                if (_instance != null) return _instance;
+                return _instance;
                 var go = new GameObject("NnManager");
-                if (_instance == null) _instance = go.AddComponent<NnManager>();
-                
+                DontDestroyOnLoad(go);
+                _instance = go.AddComponent<NnManager>();
                 return _instance;
             }
         }
