@@ -8,6 +8,9 @@ namespace NnUtils.Scripts
     {
         public void StartRoutineIf(ref Coroutine target, IEnumerator routine, Func<bool> startIf) =>
             Misc.StartRoutineIf(this, ref target, routine, startIf);
+
+        public void StartNullRoutine(ref Coroutine target, IEnumerator routine) =>
+            Misc.StartNullRoutine(this, ref target, routine);
         
         public void RestartRoutine(ref Coroutine target, IEnumerator routine) =>
             Misc.RestartRoutine(this, ref target, routine);
