@@ -83,7 +83,7 @@ namespace NnUtils.Scripts.Audio
             
             while (lerpPos < 1)
             {
-                var t = Misc.UpdateLerpPos(ref lerpPos, time, easingType: easing);
+                var t = Misc.Tween(ref lerpPos, time, easingType: easing);
                 _source.volume = Mathf.LerpUnclamped(startVolume, volume, t);
                 yield return null;
             }

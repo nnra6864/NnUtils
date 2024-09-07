@@ -39,7 +39,7 @@ namespace NnUtils.Scripts
 
             while (lerpPos < 1)
             {
-                var posT = Misc.UpdateLerpPos(ref lerpPos, animParams.PositionDuration, animParams.Unscaled, animParams.PositionEasing);
+                var posT = Misc.Tween(ref lerpPos, animParams.PositionDuration, animParams.PositionEasing, animParams.Unscaled);
                 var newPos = Vector3.LerpUnclamped(startPos, targetPos, posT);
                 var posDelta = newPos - prevPos;
                 transform.localPosition += posDelta;
@@ -59,7 +59,7 @@ namespace NnUtils.Scripts
 
             while (lerpRot < 1)
             {
-                var rotT = Misc.UpdateLerpPos(ref lerpRot, animParams.RotationDuration, animParams.Unscaled, animParams.RotationEasing);
+                var rotT = Misc.Tween(ref lerpRot, animParams.RotationDuration, animParams.RotationEasing, animParams.Unscaled);
                 var newRot = Vector3.LerpUnclamped(startRot, targetRot, rotT);
                 var rotDelta = newRot - prevRot;
                 transform.localRotation *= Quaternion.Euler(rotDelta);
@@ -79,7 +79,7 @@ namespace NnUtils.Scripts
             
             while (lerpScale < 1)
             {
-                var scaleT = Misc.UpdateLerpPos(ref lerpScale, animParams.ScaleDuration, animParams.Unscaled, animParams.ScaleEasing);
+                var scaleT = Misc.Tween(ref lerpScale, animParams.ScaleDuration, animParams.ScaleEasing, animParams.Unscaled);
                 var newScale = Vector3.LerpUnclamped(startScale, targetScale, scaleT);
                 var scaleDelta = newScale - prevScale;
                 transform.localScale += scaleDelta;

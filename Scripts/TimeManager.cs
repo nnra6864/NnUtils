@@ -61,7 +61,7 @@ namespace NnUtils.Scripts
             while (lerpPos < 1)
             {
                 if (IsPaused) { yield return null; continue; }
-                var t = curve?.Evaluate(Misc.UpdateLerpPos(ref lerpPos, time, true)) ?? Misc.UpdateLerpPos(ref lerpPos, time, true);
+                var t = curve?.Evaluate(Misc.Tween(ref lerpPos, time, unscaled: true)) ?? Misc.Tween(ref lerpPos, time, unscaled: true);
                 TimeScale = Mathf.LerpUnclamped(startTimeScale, timeScale, t);
                 yield return null;
             }
@@ -88,7 +88,7 @@ namespace NnUtils.Scripts
                 while (lerpPos < 1)
                 {
                     if (IsPaused) { yield return null; continue; }
-                    var t = curves == null ? Misc.UpdateLerpPos(ref lerpPos, time, true, easing) : curves[i].Evaluate(Misc.UpdateLerpPos(ref lerpPos, time, true));
+                    var t = curves == null ? Misc.Tween(ref lerpPos, time, easing, true) : curves[i].Evaluate(Misc.Tween(ref lerpPos, time, unscaled: true));
                     TimeScale = Mathf.LerpUnclamped(startTimeScale, timeScale, t);
                     yield return null;
                 }

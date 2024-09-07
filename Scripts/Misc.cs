@@ -63,12 +63,12 @@ namespace NnUtils.Scripts
         /// <summary>
         /// Updates the lerp position and returns the eased value
         /// </summary>
-        /// <param name="lerpPos"></param>
-        /// <param name="lerpTime"></param>
-        /// <param name="unscaled"></param>
-        /// <param name="easingType"></param>
-        /// <returns></returns>
-        public static float UpdateLerpPos(ref float lerpPos, float lerpTime = 1, bool unscaled = false, Easings.Type easingType = Easings.Type.None)
+        /// <param name="lerpPos">Reference to the lerp pos</param>
+        /// <param name="lerpTime">Lerp time in seconds</param>
+        /// <param name="easingType">Applied easing</param>
+        /// <param name="unscaled">Uses <see cref="Time.unscaledDeltaTime"/> if true</param>
+        /// <returns>Eased lerp position</returns>
+        public static float Tween(ref float lerpPos, float lerpTime = 1, Easings.Type easingType = Easings.Type.None, bool unscaled = false)
         {
             if (lerpTime == 0) lerpPos = 1;
             else lerpPos = Mathf.Clamp01(lerpPos += (unscaled ? Time.unscaledDeltaTime : Time.deltaTime) / lerpTime);
@@ -78,13 +78,13 @@ namespace NnUtils.Scripts
         /// <summary>
         /// Reverses the lerp position and returns the eased value
         /// </summary>
-        /// <param name="lerpPos"></param>
-        /// <param name="lerpTime"></param>
-        /// <param name="unscaled"></param>
-        /// <param name="easingType"></param>
-        /// <param name="invertEasing"></param>
-        /// <returns></returns>
-        public static float ReverseLerpPos(ref float lerpPos, float lerpTime = 1, bool unscaled = false, Easings.Type easingType = Easings.Type.None, bool invertEasing = true)
+        /// <param name="lerpPos">Reference to the lerp pos</param>
+        /// <param name="lerpTime">Lerp time in seconds</param>
+        /// <param name="easingType">Applied easing</param>
+        /// <param name="unscaled">Uses <see cref="Time.unscaledDeltaTime"/> if true</param>
+        /// <param name="invertEasing">If ture, easing will be applied to (1 - lerpPos)</param>
+        /// <returns>Eased lerp position</returns>
+        public static float ReverseTween(ref float lerpPos, float lerpTime = 1, Easings.Type easingType = Easings.Type.None, bool invertEasing = true, bool unscaled = false)
         {
             if (lerpTime == 0) lerpPos = 0;
             else lerpPos = Mathf.Clamp01(lerpPos -= (unscaled ? Time.unscaledDeltaTime : Time.deltaTime) / lerpTime);
