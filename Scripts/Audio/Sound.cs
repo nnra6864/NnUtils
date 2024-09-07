@@ -17,9 +17,9 @@ namespace NnUtils.Scripts.Audio
         [Range(0, 1)] public float SpatialBlend;
         public bool FadeIn;
         public float FadeInTime = 1;
-        public Easings.Types FadeInEasing = Easings.Types.SineIn;
+        public Easings.Type FadeInEasing = Easings.Type.SineIn;
         public bool FadeOut;
         public float FadeOutTime = 1;
-        public Easings.Types FadeOutEasing = Easings.Types.SineOut;
+        public Easings.Type FadeOutEasing = Easings.Type.SineOut;
     }
 }

@@ -72,11 +72,11 @@ namespace NnUtils.Scripts.Audio
 
         #region ChangeVolume
         
-        public void ChangeVolume(float volume, float time = 1, Easings.Types easing = Easings.Types.SineIn) => 
+        public void ChangeVolume(float volume, float time = 1, Easings.Type easing = Easings.Type.SineIn) => 
             RestartRoutine(ref _changeVolumeRoutine, ChangeVolumeRoutine(volume, time, easing));
 
         private Coroutine _changeVolumeRoutine;
-        private IEnumerator ChangeVolumeRoutine(float volume, float time = 0, Easings.Types easing = Easings.Types.None)
+        private IEnumerator ChangeVolumeRoutine(float volume, float time = 0, Easings.Type easing = Easings.Type.None)
         {
             var startVolume = _source.volume;
             float lerpPos = 0;

@@ -2,38 +2,39 @@ using UnityEngine;
 
 namespace NnUtils.Scripts
 {
-    public class Easings
+    public static class Easings
     {
-        public enum Types
+        public enum Type
         {
             None,
             SineIn, SineOut, SineInOut, SineOutIn,
             QuadIn, QuadOut, QuadInOut,
-            QuartIn, QuartOut, QuartInOut,
             CubicIn, CubicOut, CubicInOut, CubicOutIn,
+            QuartIn, QuartOut, QuartInOut,
             ExpoIn, ExpoOut, ExpoInOut
         }
-        public static float Ease(float t, Types easing)
+        
+        public static float Ease(float t, Type easing)
         {
             switch (easing)
             {
-                case Types.SineIn: return SineIn(t);
-                case Types.SineOut: return SineOut(t);
-                case Types.SineInOut: return SineInOut(t);
-                case Types.SineOutIn: return SineOutIn(t);
-                case Types.QuadIn: return QuadIn(t);
-                case Types.QuadOut: return QuadOut(t);
-                case Types.QuadInOut: return QuadInOut(t);
-                case Types.QuartIn: return QuartIn(t);
-                case Types.QuartOut: return QuartOut(t);
-                case Types.QuartInOut: return QuartInOut(t);
-                case Types.CubicIn: return CubicIn(t);
-                case Types.CubicOut: return CubicOut(t);
-                case Types.CubicInOut: return CubicInOut(t);
-                case Types.CubicOutIn: return CubicOutIn(t);
-                case Types.ExpoIn: return ExpoIn(t);
-                case Types.ExpoOut: return ExpoOut(t);
-                case Types.ExpoInOut: return ExpoInOut(t);
+                case Type.SineIn: return SineIn(t);
+                case Type.SineOut: return SineOut(t);
+                case Type.SineInOut: return SineInOut(t);
+                case Type.SineOutIn: return SineOutIn(t);
+                case Type.QuadIn: return QuadIn(t);
+                case Type.QuadOut: return QuadOut(t);
+                case Type.QuadInOut: return QuadInOut(t);
+                case Type.CubicIn: return CubicIn(t);
+                case Type.CubicOut: return CubicOut(t);
+                case Type.CubicInOut: return CubicInOut(t);
+                case Type.CubicOutIn: return CubicOutIn(t);
+                case Type.QuartIn: return QuartIn(t);
+                case Type.QuartOut: return QuartOut(t);
+                case Type.QuartInOut: return QuartInOut(t);
+                case Type.ExpoIn: return ExpoIn(t);
+                case Type.ExpoOut: return ExpoOut(t);
+                case Type.ExpoInOut: return ExpoInOut(t);
                 default: return t;
             }
         }

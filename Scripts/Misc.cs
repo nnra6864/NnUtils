@@ -68,7 +68,7 @@ namespace NnUtils.Scripts
         /// <param name="unscaled"></param>
         /// <param name="easingType"></param>
         /// <returns></returns>
-        public static float UpdateLerpPos(ref float lerpPos, float lerpTime = 1, bool unscaled = false, Easings.Types easingType = Easings.Types.None)
+        public static float UpdateLerpPos(ref float lerpPos, float lerpTime = 1, bool unscaled = false, Easings.Type easingType = Easings.Type.None)
         {
             if (lerpTime == 0) lerpPos = 1;
             else lerpPos = Mathf.Clamp01(lerpPos += (unscaled ? Time.unscaledDeltaTime : Time.deltaTime) / lerpTime);
@@ -84,7 +84,7 @@ namespace NnUtils.Scripts
         /// <param name="easingType"></param>
         /// <param name="invertEasing"></param>
         /// <returns></returns>
-        public static float ReverseLerpPos(ref float lerpPos, float lerpTime = 1, bool unscaled = false, Easings.Types easingType = Easings.Types.None, bool invertEasing = true)
+        public static float ReverseLerpPos(ref float lerpPos, float lerpTime = 1, bool unscaled = false, Easings.Type easingType = Easings.Type.None, bool invertEasing = true)
         {
             if (lerpTime == 0) lerpPos = 0;
             else lerpPos = Mathf.Clamp01(lerpPos -= (unscaled ? Time.unscaledDeltaTime : Time.deltaTime) / lerpTime);

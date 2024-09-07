@@ -10,19 +10,19 @@ namespace NnUtils.Scripts
         public Vector3 Position;
         public bool AdditivePosition;
         public float PositionDuration;
-        public Easings.Types PositionEasing;
+        public Easings.Type PositionEasing;
         
         [Header("Rotation")]
         public Vector3 Rotation;
         public bool AdditiveRotation;
         public float RotationDuration;
-        public Easings.Types RotationEasing;
+        public Easings.Type RotationEasing;
         
         [Header("Scale")]
         public Vector3 Scale;
         public bool AdditiveScale;
         public float ScaleDuration;
-        public Easings.Types ScaleEasing;
+        public Easings.Type ScaleEasing;
         public bool Unscaled;
 
         public AnimationParams(
@@ -30,7 +30,7 @@ namespace NnUtils.Scripts
             Vector3 rotation,
             Vector3 scale,
             float duration,
-            Easings.Types easing = Easings.Types.None,
+            Easings.Type easing = Easings.Type.None,
             bool unscaled = false,
             bool additive = false)
         {
@@ -47,15 +47,15 @@ namespace NnUtils.Scripts
             Vector3 position,
             bool additivePosition,
             float positionDuration,
-            Easings.Types positionEasing,
+            Easings.Type positionEasing,
             Vector3 rotation,
             bool additiveRotation,
             float rotationDuration,
-            Easings.Types rotationEasing,
+            Easings.Type rotationEasing,
             Vector3 scale,
             bool additiveScale,
             float scaleDuration,
-            Easings.Types scaleEasing,
+            Easings.Type scaleEasing,
             bool unscaled = false)
         {
             Position = position;
