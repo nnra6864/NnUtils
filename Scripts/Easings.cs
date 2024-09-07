@@ -14,30 +14,29 @@ namespace NnUtils.Scripts
             ExpoIn, ExpoOut, ExpoInOut
         }
         
-        public static float Ease(float t, Type easing)
-        {
-            switch (easing)
+        public static float Ease(float t, Type easing) =>
+            easing switch
             {
-                case Type.SineIn: return SineIn(t);
-                case Type.SineOut: return SineOut(t);
-                case Type.SineInOut: return SineInOut(t);
-                case Type.SineOutIn: return SineOutIn(t);
-                case Type.QuadIn: return QuadIn(t);
-                case Type.QuadOut: return QuadOut(t);
-                case Type.QuadInOut: return QuadInOut(t);
-                case Type.CubicIn: return CubicIn(t);
-                case Type.CubicOut: return CubicOut(t);
-                case Type.CubicInOut: return CubicInOut(t);
-                case Type.CubicOutIn: return CubicOutIn(t);
-                case Type.QuartIn: return QuartIn(t);
-                case Type.QuartOut: return QuartOut(t);
-                case Type.QuartInOut: return QuartInOut(t);
-                case Type.ExpoIn: return ExpoIn(t);
-                case Type.ExpoOut: return ExpoOut(t);
-                case Type.ExpoInOut: return ExpoInOut(t);
-                default: return t;
-            }
-        }
+                Type.SineIn => SineIn(t),
+                Type.SineOut => SineOut(t),
+                Type.SineInOut => SineInOut(t),
+                Type.SineOutIn => SineOutIn(t),
+                Type.QuadIn => QuadIn(t),
+                Type.QuadOut => QuadOut(t),
+                Type.QuadInOut => QuadInOut(t),
+                Type.CubicIn => CubicIn(t),
+                Type.CubicOut => CubicOut(t),
+                Type.CubicInOut => CubicInOut(t),
+                Type.CubicOutIn => CubicOutIn(t),
+                Type.QuartIn => QuartIn(t),
+                Type.QuartOut => QuartOut(t),
+                Type.QuartInOut => QuartInOut(t),
+                Type.ExpoIn => ExpoIn(t),
+                Type.ExpoOut => ExpoOut(t),
+                Type.ExpoInOut => ExpoInOut(t),
+                _ => t
+            };
+
         #region Sine
         public static float SineIn(float t) => 1 - Mathf.Cos(t * Mathf.PI / 2f);
         public static float SineOut(float t) => Mathf.Sin(t * Mathf.PI / 2f);
