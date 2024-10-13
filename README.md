@@ -1,3 +1,5 @@
-Since unity pm is kinda shitty, you are gonna have to clone/download this repo into your assets folder.
-To clone the repo, open up your terminal of choice and run the following command:
-`git clone git@github.com:nnra6864/NnUtils.git`
+You can add this package as a submodule:
+git submodule add https://www.github.com/nnra6864/NnUtils.git ProjectName/Assets/NnUtils
+
+Or clone it:
+git clone https://www.github.com/nnra6864/NnUtils
