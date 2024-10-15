@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
@@ -29,31 +30,33 @@ namespace NnUtils.Scripts
         
         #region Is Pointer Over UI
         public static bool IsPointerOverUI => IsPointerOverUIElement(GetEventSystemRaycastResults());
+        
         private static bool IsPointerOverUIElement(List<RaycastResult> eventSystemRaycastResults)
         {
-            foreach (var curRaycastResult in eventSystemRaycastResults)
-                if (curRaycastResult.gameObject.layer == LayerMask.NameToLayer("UI"))
-                    return true;
-            return false;
+            var uiLayer = LayerMask.NameToLayer("UI");
+            return eventSystemRaycastResults.Any(curRaycastResult => curRaycastResult.gameObject.layer == uiLayer);
         }
+
         private static List<RaycastResult> GetEventSystemRaycastResults()
         {
             PointerEventData eventData = new(EventSystem.current)
             {
                 position = Input.mousePosition
             };
+            
             List<RaycastResult> raycastResults = new();
             EventSystem.current.RaycastAll(eventData, raycastResults);
+            
             return raycastResults;
         }
         #endregion
 
-        public static Vector2 CapV2WithingRects(Vector2 vector, float min, float max) =>
+        public static Vector2 CapV2WithinRects(Vector2 vector, float min, float max) =>
             IsValueInRange(vector.x, min, max) && IsValueInRange(vector.y, min, max)
             ? vector
             : !IsValueInRange(vector.x, min, max)
-                ? new Vector2(Mathf.Clamp(vector.x, min, max), vector.y)
-                : new Vector2(vector.x, Mathf.Clamp(vector.y, min, max));
+                ? new(Mathf.Clamp(vector.x, min, max), vector.y)
+                : new(vector.x, Mathf.Clamp(vector.y, min, max));
 
         public static bool IsValueInRange(float value, float min, float max) => value >= min && value <= max;
 
@@ -147,7 +150,7 @@ namespace NnUtils.Scripts
         public static float RadialSelection()
         {
             Vector2 mousePos = Input.mousePosition;
-            Vector2 centerPos = new(Screen.width / 2, Screen.height / 2);
+            Vector2 centerPos = new(Screen.width / 2f, Screen.height / 2f);
             var dir = mousePos - centerPos;
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
             angle += angle < 0 ? 360 : 0;

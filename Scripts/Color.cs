@@ -3,18 +3,21 @@ using UnityEngine;
 
 namespace NnUtils.Scripts
 {
+    //TODO: Extend the unity Color class instead of making a new one
     public class Color : MonoBehaviour
     {
-        public static Color32 HexToRgba(string hex, Color32 currentColor)
+        public static Color32 HEXAToRGBA(string hex, Color32 currentColor)
         {
             if (hex.Length < 1) return currentColor;
             int i = hex[0] == '#' ? 1 : 0;
             int r = currentColor.r, g = currentColor.g, b = currentColor.b, a = currentColor.a;
-            if (hex.Length >= 2 + i) if (!int.TryParse($"{hex[0 + i]}{hex[1 + i]}", NumberStyles.HexNumber, CultureInfo.InvariantCulture, out r)) { }
-            if (hex.Length >= 4 + i) if (!int.TryParse($"{hex[2 + i]}{hex[3 + i]}", NumberStyles.HexNumber, CultureInfo.InvariantCulture, out g)) { }
-            if (hex.Length >= 6 + i) if (!int.TryParse($"{hex[4 + i]}{hex[5 + i]}", NumberStyles.HexNumber, CultureInfo.InvariantCulture, out b)) { }
-            if (hex.Length >= 8 + i) if (!int.TryParse($"{hex[6 + i]}{hex[7 + i]}", NumberStyles.HexNumber, CultureInfo.InvariantCulture, out a)) { }
-            return new Color32(byte.Parse(r.ToString()), byte.Parse(g.ToString()), byte.Parse(b.ToString()), byte.Parse(a.ToString()));
+            
+            if (hex.Length >= 2 + i && !int.TryParse($"{hex[0 + i]}{hex[1 + i]}", NumberStyles.HexNumber, CultureInfo.InvariantCulture, out r)) { }
+            if (hex.Length >= 4 + i && !int.TryParse($"{hex[2 + i]}{hex[3 + i]}", NumberStyles.HexNumber, CultureInfo.InvariantCulture, out g)) { }
+            if (hex.Length >= 6 + i && !int.TryParse($"{hex[4 + i]}{hex[5 + i]}", NumberStyles.HexNumber, CultureInfo.InvariantCulture, out b)) { }
+            if (hex.Length >= 8 + i && !int.TryParse($"{hex[6 + i]}{hex[7 + i]}", NumberStyles.HexNumber, CultureInfo.InvariantCulture, out a)) { }
+
+            return new(byte.Parse(r.ToString()), byte.Parse(g.ToString()), byte.Parse(b.ToString()), byte.Parse(a.ToString()));
         }
 
         public static string FormatColor32ToRGBA(Color32 col, string format = "r, g, b, a")

@@ -1,4 +1,3 @@
-using NnUtils.Scripts.Audio;
 using UnityEngine;
 
 namespace NnUtils.Scripts
@@ -42,9 +41,5 @@ namespace NnUtils.Scripts
         [SerializeField] private TimeManager _timeManager;
         public static TimeManager TimeManager =>
             Instance._timeManager ?? (Instance._timeManager = Instance.gameObject.GetOrAddComponent<TimeManager>());
-    
-        [SerializeField] private AudioManager _audioManager;
-        public static AudioManager AudioManager =>
-            Instance._audioManager ?? (Instance._audioManager = Instance.gameObject.GetOrAddComponent<AudioManager>());
     }
 }

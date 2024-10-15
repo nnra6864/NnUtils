@@ -3,7 +3,7 @@ using NnUtils.Scripts;
 
 namespace DefaultNamespace
 {
-    public class #SCRIPTNAME# : NnBehaviour
+    public class #SCRIPTNAME# : MonoBehaviour
     {
         
     }
