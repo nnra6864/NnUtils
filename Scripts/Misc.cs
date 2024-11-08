@@ -165,5 +165,7 @@ namespace NnUtils.Scripts
             angle += angle < 0 ? 360 : 0;
             return 360 - angle;
         }
+        
+        public static Sprite Texture2DToSprite(Texture2D texture) => Sprite.Create(texture, new(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
     }
 }
