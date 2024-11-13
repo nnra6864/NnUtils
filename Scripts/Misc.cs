@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -165,7 +166,25 @@ namespace NnUtils.Scripts
             angle += angle < 0 ? 360 : 0;
             return 360 - angle;
         }
+
+        public static Texture2D TexFromFile(string path)
+        {
+            // Read the config value and replace relative with full path
+            path = path.Replace("~", Environment.GetFolderPath(Environment.SpecialFolder.Personal));
+
+            // If the background file doesn't exist, set to default background
+            if (!File.Exists(path)) return null;
+
+            //Read image data and store it into a Texture2D
+            var bgData = File.ReadAllBytes(path);
+            Texture2D bgTex = new(0, 0);
+            
+            return !bgTex.LoadImage(bgData) ? null : bgTex;
+        }
         
-        public static Sprite Texture2DToSprite(Texture2D texture) => Sprite.Create(texture, new(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
+        public static Sprite Texture2DToSprite(Texture2D texture) =>
+            texture == null ? null : Sprite.Create(texture, new(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
+
+        public static Sprite SpriteFromFile(string path) => Texture2DToSprite(TexFromFile(path));
     }
 }
