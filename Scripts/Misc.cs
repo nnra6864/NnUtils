@@ -169,17 +169,17 @@ namespace NnUtils.Scripts
 
         public static Texture2D TexFromFile(string path)
         {
-            // Read the config value and replace relative with full path
+            // Replace the relative with absolute path
             path = path.Replace("~", Environment.GetFolderPath(Environment.SpecialFolder.Personal));
 
-            // If the background file doesn't exist, set to default background
+            // If the image file doesn't exist, return null
             if (!File.Exists(path)) return null;
 
-            //Read image data and store it into a Texture2D
-            var bgData = File.ReadAllBytes(path);
-            Texture2D bgTex = new(0, 0);
+            // Read image data and store it into a Texture2D
+            var data = File.ReadAllBytes(path);
+            Texture2D tex = new(0, 0);
             
-            return !bgTex.LoadImage(bgData) ? null : bgTex;
+            return !tex.LoadImage(data) ? null : tex;
         }
         
         public static Sprite Texture2DToSprite(Texture2D texture) =>
