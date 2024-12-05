@@ -1,8 +1,8 @@
-﻿using System;
+﻿using UnityEngine;
 
 namespace NnUtils.Scripts
 {
-    public class ReadOnlyAttribute : Attribute
+    public class ReadOnlyAttribute : PropertyAttribute
     {
         
     }
