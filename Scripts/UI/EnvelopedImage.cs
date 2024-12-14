@@ -11,12 +11,16 @@ namespace NnUtils.Scripts.UI
         private Sprite _currentSprite;
         [HideInInspector] [SerializeField] private AspectRatioFitter _aspectRatioFitter;
 
+        #if UNITY_EDITOR
+        
         protected override void Reset()
         {
             _aspectRatioFitter            = GetComponent<AspectRatioFitter>();
             _aspectRatioFitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
             base.Reset();
         }
+        
+        #endif
         
         private void Update()
         {
