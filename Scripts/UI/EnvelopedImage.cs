@@ -20,17 +20,6 @@ namespace NnUtils.Scripts.UI
             base.Reset();
         }
         
-        #endif
-        
-        private void Update()
-        {
-            if (sprite == _currentSprite) return;
-            _currentSprite = sprite;
-            if (_currentSprite == null) return;
-            var rect = _currentSprite.rect;
-            _aspectRatioFitter.aspectRatio = rect.width / rect.height;
-        }
-
         [MenuItem(itemName: "GameObject/UI/EnvelopedImage")]
         private static void CreateEnvelopedImage()
         {
@@ -46,6 +35,17 @@ namespace NnUtils.Scripts.UI
             
             // Set object as dirty to ensure it's saved
             EditorUtility.SetDirty(obj);
+        }
+        
+        #endif
+        
+        private void Update()
+        {
+            if (sprite == _currentSprite) return;
+            _currentSprite = sprite;
+            if (_currentSprite == null) return;
+            var rect = _currentSprite.rect;
+            _aspectRatioFitter.aspectRatio = rect.width / rect.height;
         }
     }
 }
