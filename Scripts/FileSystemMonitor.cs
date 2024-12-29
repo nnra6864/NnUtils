@@ -30,7 +30,11 @@ namespace NnUtils.Scripts
         /// Notify Filters
         public readonly NotifyFilters NotifyFilter;
 
+        /// Gets executed when fs changes
         public event Action OnChanged;
+
+        /// Used to execute OnChanged on the main thread to avoid weird behaviour
+        private readonly SynchronizationContext _sync;
 
         /// <summary>
         /// Creates a new <see cref="FileSystemMonitor"/>
@@ -50,6 +54,9 @@ namespace NnUtils.Scripts
             NotifyFilter = notifyFilter;
             ReloadDelay  = (int)(reloadDelay * 1000);
 
+            // Get sync context
+            _sync = SynchronizationContext.Current;
+            
             // Initialize watcher
             InitializeWatcher();
 
@@ -85,10 +92,14 @@ namespace NnUtils.Scripts
             Watcher.EnableRaisingEvents =  true;
         }
 
+        /// Used to cancel the invocation of <see cref="OnChanged"/> in case the config reloaded again
         private CancellationTokenSource _cancellationTokenSource;
         
+        /// Executes <see cref="HandleChange()"/> on the main thread to avoid weird behaviour
+        private void HandleChange(object sender, FileSystemEventArgs args) => _sync.Post(_ => HandleChange(), null);
+
         /// Handles the change being changed
-        private void HandleChange(object sender, FileSystemEventArgs args)
+        private void HandleChange()
         {
             // Cancel the previous task if it hasn't completed yet
             _cancellationTokenSource?.Cancel();
@@ -97,7 +108,7 @@ namespace NnUtils.Scripts
             _cancellationTokenSource = new();
 
             // Trigger the delayed event
-            _ = ChangeTask(_cancellationTokenSource.Token);
+            ChangeTask(_cancellationTokenSource.Token).ConfigureAwait(false);
         }
         
         /// Waits for <see cref="ReloadDelay"/> seconds and triggers the <see cref="OnChanged"/> event
