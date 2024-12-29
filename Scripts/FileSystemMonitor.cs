@@ -2,12 +2,16 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace NnUtils.Scripts
 {
     /// Wrapper for the <see cref="FileSystemWatcher"/> with qol changes
     public class FileSystemMonitor : IDisposable
     {
+        private const float DefaultReloadDelay = 0.1f;
+        private const NotifyFilters DefaultFilters = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.Size;
+        
         /// Used to detect file changes
         public FileSystemWatcher Watcher { get; private set; }
         
@@ -36,12 +40,12 @@ namespace NnUtils.Scripts
         /// <param name="onChanged">Gets executed when the change is detected</param>
         /// <param name="notifyFilter">Notify filters</param>
         /// <param name="reloadDelay">Delay before the change is acknowledged</param>
-        public FileSystemMonitor(string directory, string file = "*.*", Action onChanged = null, NotifyFilters notifyFilter = default, float reloadDelay = 0.1f)
+        public FileSystemMonitor(string directory, string file = "*.*", Action onChanged = null, float reloadDelay = DefaultReloadDelay, NotifyFilters notifyFilter = DefaultFilters)
         {
             // Store values
             Directory    = directory;
             File         = file;
-            Path         = System.IO.Path.Combine(directory, file);
+            Path         = System.IO.Path.Combine(Directory, File);
             OnChanged    = onChanged;
             NotifyFilter = notifyFilter;
             ReloadDelay  = (int)(reloadDelay * 1000);
@@ -60,8 +64,8 @@ namespace NnUtils.Scripts
         /// <param name="onChanged">Gets executed when the change is detected</param>
         /// <param name="notifyFilter">Notify filters</param>
         /// <param name="reloadDelay">Delay before the change is acknowledged</param>
-        public FileSystemMonitor(string path, Action onChanged = null, NotifyFilters notifyFilter = default, float reloadDelay = 0.1f)
-        : this(System.IO.Path.GetDirectoryName(path), System.IO.Path.GetFileName(path), onChanged, notifyFilter, reloadDelay) { }
+        public FileSystemMonitor(string path, Action onChanged = null, float reloadDelay = DefaultReloadDelay, NotifyFilters notifyFilter = DefaultFilters)
+        : this(System.IO.Path.GetDirectoryName(path), System.IO.Path.GetFileName(path), onChanged, reloadDelay, notifyFilter) { }
         
         private void InitializeWatcher() => 
             Watcher = new()
@@ -100,7 +104,7 @@ namespace NnUtils.Scripts
         private async Task ChangeTask(CancellationToken cancellationToken)
         {
             await Task.Delay(ReloadDelay, cancellationToken);
-            OnChanged?.Invoke();
+            if (!cancellationToken.IsCancellationRequested) OnChanged?.Invoke();
         }
 
         #region IDisposable
