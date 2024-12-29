@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEngine.TextCore.Text;
 
 namespace NnUtils.Scripts
 {
@@ -18,7 +19,9 @@ namespace NnUtils.Scripts
         /// <param name="fontPath">Path to a font</param>
         /// <returns><see cref="TMP_FontAsset"/> generated from a font</returns>
         public static TMP_FontAsset GenerateFontFromPath(string fontPath) => TMP_FontAsset.CreateFontAsset(new(fontPath));
-        
+
+        public static FontAsset GenerateFont(string fontPath) => FontAsset.CreateFontAsset(new(fontPath));
+
         /// <summary>
         /// Gets the name of a font located at <paramref name="fontPath"/>
         /// </summary>
