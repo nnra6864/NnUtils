@@ -4,3 +4,9 @@
 [submodule "TextUtils"]
 	path = TextUtils
 	url = https://github.com/nnra6864/TextUtils
+[submodule "Modules/JSONUtils"]
+	path = Modules/JSONUtils
+	url = https://github.com/nnra6864/JSONUtils
+[submodule "Modules/TextUtils"]
+	path = Modules/TextUtils
+	url = https://github.com/nnra6864/TextUtils
