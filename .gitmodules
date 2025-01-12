@@ -1,3 +1,6 @@
 [submodule "UnityJSONUtils"]
 	path = UnityJSONUtils
 	url = https://github.com/nnra6864/UnityJSONUtils
+[submodule "TextUtils"]
+	path = TextUtils
+	url = https://github.com/nnra6864/TextUtils
