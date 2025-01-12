@@ -1,0 +1,3 @@
+[submodule "UnityJSONUtils"]
+	path = UnityJSONUtils
+	url = https://github.com/nnra6864/UnityJSONUtils
