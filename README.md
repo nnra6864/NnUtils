@@ -24,3 +24,9 @@ cd NnUtils
 git submodule init Modules/JSONUtils Modules/SomeOtherModule
 git submodule update
 ```
+
+## Dependencies
+NnUtils also has some dependencies that can't be automatically installed.
+
+### [Newtonsoft JSON](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.2) - Required by [JSONUtils](https://www.github.com/nnra6864/JSONUtils)
+Get it by using `Install package by name` in the Unity Package Manager and pasting the following `com.unity.nuget.newtonsoft-json`
