@@ -1,10 +1,9 @@
 using TMPro;
-using UnityEngine.TextCore.Text;
 
-namespace NnUtils.Scripts
+namespace NnUtils.TextUtils.Scripts
 {
     // TODO: Add Windows and possibly OSX compatibility
-    public static class SystemTMP
+    public static class SystemFont
     {
         /// <summary>
         /// Generates a <see cref="TMP_FontAsset"/> from a font name
@@ -19,8 +18,6 @@ namespace NnUtils.Scripts
         /// <param name="fontPath">Path to a font</param>
         /// <returns><see cref="TMP_FontAsset"/> generated from a font</returns>
         public static TMP_FontAsset GenerateFontFromPath(string fontPath) => TMP_FontAsset.CreateFontAsset(new(fontPath));
-
-        public static FontAsset GenerateFont(string fontPath) => FontAsset.CreateFontAsset(new(fontPath));
 
         /// <summary>
         /// Gets the name of a font located at <paramref name="fontPath"/>
