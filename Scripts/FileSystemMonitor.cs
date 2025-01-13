@@ -42,10 +42,8 @@ namespace NnUtils.Scripts
             OnChanged    = onChanged;
             NotifyFilter = notifyFilter;
             
-            // Initialize watcher
+            // Initializer and monitor
             InitializeWatcher();
-
-            // Start watching or changes
             MonitorChanges();
         }
 
@@ -56,16 +54,30 @@ namespace NnUtils.Scripts
         /// <param name="onChanged">Gets executed when the change is detected</param>
         /// <param name="notifyFilter">Notify filters</param>
         public FileSystemMonitor(string path, Action onChanged = null, NotifyFilters notifyFilter = DefaultFilters)
-        : this(System.IO.Path.GetDirectoryName(path), System.IO.Path.GetFileName(path), onChanged, notifyFilter) { }
+        {
+            // Store values
+            Directory    = System.IO.Path.GetDirectoryName(path);
+            File         = System.IO.File.Exists(path) ? System.IO.Path.GetFileName(path) : "*.*";
+            Path         = path;
+            OnChanged    = onChanged;
+            NotifyFilter = notifyFilter;
+
+            // Initializer and monitor
+            InitializeWatcher();
+            MonitorChanges();
+        }
         
-        private void InitializeWatcher() => 
+        private void InitializeWatcher()
+        {
             Watcher = new()
             {
-                Path = Directory,
-                Filter = File,
+                Path         = Directory,
+                Filter       = File,
                 NotifyFilter = NotifyFilter
             };
-        
+            Watcher.IncludeSubdirectories = true;
+        }
+
         /// Sets up the FileSystemWatcher to monitor changes to the config file
         private void MonitorChanges()
         {
