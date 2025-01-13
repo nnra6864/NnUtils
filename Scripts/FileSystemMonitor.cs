@@ -91,6 +91,7 @@ namespace NnUtils.Scripts
         /// Invokes the <see cref="OnChanged"/> event
         private void HandleChange(object sender, FileSystemEventArgs args)
         {
+            if (args.Name.EndsWith(".tmp") || args.Name.StartsWith("~")) return;
             OnChanged?.Invoke();
         }
 
