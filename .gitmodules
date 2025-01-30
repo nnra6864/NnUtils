@@ -10,3 +10,6 @@
 [submodule "Modules/TextUtils"]
 	path = Modules/TextUtils
 	url = https://github.com/nnra6864/TextUtils
+[submodule "Modules/NnUtilsFiles"]
+	path = Modules/NnUtilsFiles
+	url = https://github.com/nnra6864/NnUtilsFiles
