@@ -672,7 +672,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_SerializedTexture": "",
         "m_Guid": ""
     },
     "isMainTexture": false,
@@ -798,7 +798,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_SerializedTexture": "",
         "m_Guid": ""
     },
     "isMainTexture": false,
@@ -985,7 +985,7 @@
     "m_StageCapability": 3,
     "m_BareResource": false,
     "m_Texture": {
-        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_SerializedTexture": "",
         "m_Guid": ""
     },
     "m_DefaultType": 0
@@ -1141,8 +1141,8 @@
     "m_ObjectId": "8148a25f10bb44aeac7bd67e1c0c138f",
     "m_Title": "Base",
     "m_Position": {
-        "x": -1225.0,
-        "y": 141.00006103515626
+        "x": -563.9999389648438,
+        "y": -323.0
     }
 }
 
@@ -1733,8 +1733,8 @@
     "m_ObjectId": "c7941790d4424007819ec642b4441dbf",
     "m_Title": "Emission",
     "m_Position": {
-        "x": -1396.0,
-        "y": 421.9999694824219
+        "x": -759.0,
+        "y": -41.99999237060547
     }
 }
 
@@ -2069,7 +2069,7 @@
     "m_StageCapability": 3,
     "m_BareResource": false,
     "m_Texture": {
-        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_SerializedTexture": "",
         "m_Guid": ""
     },
     "m_DefaultType": 0
