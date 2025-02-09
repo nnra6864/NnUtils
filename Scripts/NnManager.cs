@@ -20,9 +20,8 @@ namespace NnUtils.Scripts
                 if (_instance != null) return _instance;
 
                 // Create a new object, don't destroy it on load, assign it to _instance and return it
-                var go = new GameObject("NnManager");
-                DontDestroyOnLoad(go);
-                _instance = go.AddComponent<NnManager>();
+                var prefab = Resources.Load<GameObject>("NnManager");
+                _instance = Instantiate(prefab).GetComponent<NnManager>();
                 return _instance;
             }
         }
