@@ -16,15 +16,6 @@ In your `Assets` directory run:
 git clone --recursive https://www.github.com/nnra6864/NnUtils
 ```
 
-### Selective
-If you want only specific modules, you can do the following in your `Assets` directory:
-```sh
-git clone https://www.github.com/nnra6864/NnUtils
-cd NnUtils
-git submodule init Modules/JSONUtils Modules/SomeOtherModule
-git submodule update
-```
-
 ## Dependencies
 NnUtils also has some dependencies that can't be automatically installed.
 

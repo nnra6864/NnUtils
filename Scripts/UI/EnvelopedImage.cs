@@ -15,11 +15,22 @@ namespace NnUtils.Scripts.UI
         
         protected override void Reset()
         {
-            _aspectRatioFitter            = GetComponent<AspectRatioFitter>();
-            _aspectRatioFitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
+            SetupARF();
             base.Reset();
         }
-        
+
+        protected override void Awake()
+        {
+            SetupARF();
+            base.Awake();
+        }
+
+        private void SetupARF()
+        {
+            _aspectRatioFitter            ??= GetComponent<AspectRatioFitter>();
+            _aspectRatioFitter.aspectMode =   AspectRatioFitter.AspectMode.EnvelopeParent;
+        }
+
         [MenuItem(itemName: "GameObject/UI/EnvelopedImage")]
         private static void CreateEnvelopedImage()
         {
