@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 using Random = UnityEngine.Random;
 
 namespace NnUtils.Scripts
@@ -186,5 +187,40 @@ namespace NnUtils.Scripts
             texture == null ? null : Sprite.Create(texture, new(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
 
         public static Sprite SpriteFromFile(string path) => Texture2DToSprite(TexFromFile(path));
+        
+        /// <summary>
+        /// Downloads a sprite from a URL and returns it through a callback when complete.
+        /// <example>
+        /// <code>
+        /// var isDone = false;
+        /// _webImageRoutine = StartCoroutine(Misc.SpriteFromURL(configImage.Image, s =>
+        /// {
+        ///     sprite = s;
+        ///     isDone = true;
+        /// }));
+        /// yield return new WaitUntil(() => isDone);
+        /// _webImageRoutine = null;
+        /// </code>
+        /// </example>
+        /// </summary>
+        /// <param name="url">The URL of the image to download</param>
+        /// <param name="onComplete">Callback that receives the downloaded sprite. Will be null if download fails.</param>
+        public static IEnumerator SpriteFromURL(string url, Action<Sprite> onComplete)
+        {
+            // Create a request and wait for it
+            var request = UnityWebRequestTexture.GetTexture(url);
+            yield return request.SendWebRequest();
+
+            // Create a sprite from the request
+            Sprite downloadedSprite = null;
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                var downloadedTexture = DownloadHandlerTexture.GetContent(request);
+                downloadedSprite = Sprite.Create(downloadedTexture, new(0, 0, downloadedTexture.width, downloadedTexture.height), new(0.5f, 0.5f));
+            }
+        
+            // Invoke the onComplete event
+            onComplete?.Invoke(downloadedSprite);
+        }
     }
 }

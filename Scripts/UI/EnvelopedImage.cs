@@ -11,14 +11,6 @@ namespace NnUtils.Scripts.UI
         private Sprite _currentSprite;
         [HideInInspector] [SerializeField] private AspectRatioFitter _aspectRatioFitter;
 
-        #if UNITY_EDITOR
-        
-        protected override void Reset()
-        {
-            SetupARF();
-            base.Reset();
-        }
-
         protected override void Awake()
         {
             SetupARF();
@@ -27,10 +19,18 @@ namespace NnUtils.Scripts.UI
 
         private void SetupARF()
         {
-            _aspectRatioFitter            ??= GetComponent<AspectRatioFitter>();
+            _aspectRatioFitter            ??= gameObject.GetComponent<AspectRatioFitter>();
             _aspectRatioFitter.aspectMode =   AspectRatioFitter.AspectMode.EnvelopeParent;
         }
 
+#if UNITY_EDITOR
+        
+        protected override void Reset()
+        {
+            SetupARF();
+            base.Reset();
+        }
+        
         [MenuItem(itemName: "GameObject/UI/EnvelopedImage")]
         private static void CreateEnvelopedImage()
         {
