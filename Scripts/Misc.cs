@@ -170,6 +170,9 @@ namespace NnUtils.Scripts
 
         public static Texture2D TexFromFile(string path)
         {
+            // Return if null
+            if (string.IsNullOrEmpty(path)) return null;
+            
             // Replace the relative with absolute path
             path = path.Replace("~", Environment.GetFolderPath(Environment.SpecialFolder.Personal));
 
