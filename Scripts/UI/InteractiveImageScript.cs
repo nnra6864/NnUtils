@@ -7,14 +7,10 @@ using UnityEngine.UI;
 
 namespace NnUtils.Scripts.UI
 {
-    [RequireComponent(typeof(Image))]
     [RequireComponent(typeof(AspectRatioFitter))]
-    public class InteractiveImageScript : MonoBehaviour
+    public class InteractiveImageScript : Image
     {
         private static ProjectImageManagerScript ImageManager => NnManager.ImageManager;
-
-        /// Stores the current image component
-        private Image _imageComponent;
 
         /// Stores the current arf component
         private AspectRatioFitter _imageARFComponent;
@@ -26,45 +22,32 @@ namespace NnUtils.Scripts.UI
         /// - Image URL
         public string Image = "";
 
-        /// This will be used if image was not found
+        /// Fallback sprite if image is not found
         public Sprite DefaultSprite;
-
-        /// Color applied to the image
-        public UnityEngine.Color Color = UnityEngine.Color.white;
-
-        /// Whether raycast can detect this component
-        public bool Raycast = true;
-
-        /// Padding for the raycast
-        public Vector4 RaycastPadding = Vector4.zero;
-
-        /// Whether a mask can be applied to this component
-        public bool Maskable = true;
 
         /// Determines how the image will be scaled
         public AspectRatioFitter.AspectMode ScalingMode = AspectRatioFitter.AspectMode.None;
 
-        private void Awake()
+        protected override void Awake()
         {
             // Get components
-            _imageComponent    = GetComponent<Image>();
             _imageARFComponent = GetComponent<AspectRatioFitter>();
 
             // Load the image
-            LoadImage(Image, Color, Raycast, RaycastPadding, Maskable, ScalingMode);
+            LoadData(Image, color, raycastTarget, raycastPadding, maskable, ScalingMode);
         }
 
         /// Loads the image
-        public void LoadImage(string image = "", UnityEngine.Color color = default, bool raycast = true, Vector4 raycastPadding = default,
-            bool maskable = true,
+        public void LoadData(string image = "", UnityEngine.Color imageColor = default,
+            bool imageRaycast = true, Vector4 imageRaycastPadding = default, bool imageMaskable = true,
             AspectRatioFitter.AspectMode scalingMode = AspectRatioFitter.AspectMode.None)
         {
-            Image                          = image;
-            _imageComponent.color          = Color          = color;
-            _imageComponent.raycastTarget  = Raycast        = raycast;
-            _imageComponent.raycastPadding = RaycastPadding = raycastPadding;
-            _imageComponent.maskable       = Maskable       = maskable;
-            _imageARFComponent.aspectMode  = ScalingMode    = scalingMode;
+            Image                         = image;
+            color                         = imageColor;
+            raycastTarget                 = imageRaycast;
+            raycastPadding                = imageRaycastPadding;
+            maskable                      = imageMaskable;
+            _imageARFComponent.aspectMode = ScalingMode = scalingMode;
 
             // Load the image and apply scaling
             this.StopRoutine(ref _webImageRoutine);
@@ -76,7 +59,7 @@ namespace NnUtils.Scripts.UI
         private IEnumerator LoadImageRoutine()
         {
             // Try to load the sprite from a file or project images and assign it to the Image component
-            var sprite = ImageManager.Images.FirstOrDefault(x => x.Name == Image).Sprite ?? Misc.SpriteFromFile(Image);
+            sprite = ImageManager.Images.FirstOrDefault(x => x.Name == Image).Sprite ?? Misc.SpriteFromFile(Image);
 
             // Try to load the sprite from the web
             if (sprite == null)
@@ -92,10 +75,7 @@ namespace NnUtils.Scripts.UI
             }
 
             // Assign default sprite if it's still null
-            if (sprite == null) sprite = DefaultSprite;
-
-            // Update the Image component's sprite
-            _imageComponent.sprite = sprite;
+            sprite ??= DefaultSprite;
 
             // Scale the image
             ScaleImage();
@@ -106,8 +86,8 @@ namespace NnUtils.Scripts.UI
         // Applies proper image scaling
         private void ScaleImage()
         {
-            if (!_imageComponent.sprite) return;
-            var rect = _imageComponent.sprite.rect;
+            if (!sprite) return;
+            var rect = sprite.rect;
             _imageARFComponent.aspectRatio = rect.width / rect.height;
         }
 

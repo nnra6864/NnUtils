@@ -210,6 +210,9 @@ namespace NnUtils.Scripts
         /// <param name="onComplete">Callback that receives the downloaded sprite. Will be null if download fails.</param>
         public static IEnumerator SpriteFromURL(string url, Action<Sprite> onComplete)
         {
+            // Return if no url is provided
+            if (string.IsNullOrEmpty(url)) yield break;
+            
             // Create a request and wait for it
             var request = UnityWebRequestTexture.GetTexture(url);
             yield return request.SendWebRequest();

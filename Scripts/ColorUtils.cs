@@ -4,7 +4,7 @@ using UnityEngine;
 namespace NnUtils.Scripts
 {
     //TODO: Extend the unity Color class instead of making a new one
-    public class Color : MonoBehaviour
+    public class ColorUtils : MonoBehaviour
     {
         public static Color32 HEXAToRGBA(string hex, Color32 currentColor)
         {
