@@ -12,7 +12,7 @@ namespace NnUtils.Scripts
             bool added = base.Add(item);
             if (added)
             {
-                OnCountChanged?.Invoke(this.Count);
+                OnCountChanged?.Invoke(Count);
             }
 
             return added;
@@ -23,7 +23,7 @@ namespace NnUtils.Scripts
             bool removed = base.Remove(item);
             if (removed)
             {
-                OnCountChanged?.Invoke(this.Count);
+                OnCountChanged?.Invoke(Count);
             }
 
             return removed;
@@ -32,7 +32,7 @@ namespace NnUtils.Scripts
         public new void Clear()
         {
             base.Clear();
-            OnCountChanged?.Invoke(this.Count);
+            OnCountChanged?.Invoke(Count);
         }
     }
 }

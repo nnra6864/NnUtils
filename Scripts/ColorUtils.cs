@@ -32,16 +32,16 @@ namespace NnUtils.Scripts
             return format;
         }
 
-        public static UnityEngine.Color LerpInHSL(UnityEngine.Color startCol, UnityEngine.Color endCol, float t)
+        public static Color LerpInHSL(Color startCol, Color endCol, float t)
         {
-            UnityEngine.Color.RGBToHSV(startCol, out var startH, out var startS, out var startV);
-            UnityEngine.Color.RGBToHSV(endCol, out var endH, out var endS, out var endV);
+            Color.RGBToHSV(startCol, out var startH, out var startS, out var startV);
+            Color.RGBToHSV(endCol, out var endH, out var endS, out var endV);
 
             var h = Mathf.Lerp(startH, endH, t);
             var s = Mathf.Lerp(startS, endS, t);
             var v = Mathf.Lerp(startV, endV, t);
 
-            return UnityEngine.Color.HSVToRGB(h, s, v);
+            return Color.HSVToRGB(h, s, v);
         }
     }
 }

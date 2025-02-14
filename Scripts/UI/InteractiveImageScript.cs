@@ -38,7 +38,7 @@ namespace NnUtils.Scripts.UI
         }
 
         /// Loads the image
-        public void LoadData(string image = "", UnityEngine.Color imageColor = default,
+        public void LoadData(string image = "", Color imageColor = default,
             bool imageRaycast = true, Vector4 imageRaycastPadding = default, bool imageMaskable = true,
             AspectRatioFitter.AspectMode scalingMode = AspectRatioFitter.AspectMode.None)
         {
