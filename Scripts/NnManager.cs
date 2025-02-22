@@ -1,4 +1,5 @@
 using NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image;
+using NnUtils.Scripts.UI;
 using UnityEngine;
 
 namespace NnUtils.Scripts

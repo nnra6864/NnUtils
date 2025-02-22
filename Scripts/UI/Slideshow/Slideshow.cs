@@ -7,12 +7,12 @@ namespace NnUtils.Scripts.UI.Slideshow
 {
     public class Slideshow : MonoBehaviour
     {
-        private List<Image> _images = new();
+        private readonly Dictionary<Image, Coroutine> _transitionRoutines = new();
         
-        public Image[] Images;
+        public SlideshowImage[] Images;
         public SlideshowTransition[] Transitions;
 
-        public void LoadData(Image[] images, SlideshowTransition[] transitions)
+        public void LoadData(SlideshowImage[] images, SlideshowTransition[] transitions)
         {
             Images = images;
             Transitions = transitions;

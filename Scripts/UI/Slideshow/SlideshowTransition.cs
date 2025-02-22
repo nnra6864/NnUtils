@@ -17,5 +17,7 @@ namespace NnUtils.Scripts.UI.Slideshow
             Duration = duration;
             Easing = easing;
         }
+        
+        
     }
 }
