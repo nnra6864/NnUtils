@@ -53,6 +53,14 @@ namespace NnUtils.Scripts
         }
         #endregion
 
+        /// Gets an argument passed to the app
+        public static string GetArg(string name)
+        {
+            var args = Environment.GetCommandLineArgs();
+            for (int i = 0; i < args.Length; i++) if (args[i] == name && args.Length > i + 1) return args[i + 1];
+            return null;
+        }
+        
         public static Vector2 CapV2WithinRects(Vector2 vector, float min, float max) =>
             IsValueInRange(vector.x, min, max) && IsValueInRange(vector.y, min, max)
             ? vector
