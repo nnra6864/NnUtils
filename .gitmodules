@@ -10,3 +10,6 @@
 [submodule "Modules/SystemAudioMonitor"]
 	path = Modules/SystemAudioMonitor
 	url = https://github.com/nnra6864/SystemAudioMonitor
+[submodule "Modules/Tabs"]
+	path = Modules/Tabs
+	url = https://github.com/nnra6864/Tabs
