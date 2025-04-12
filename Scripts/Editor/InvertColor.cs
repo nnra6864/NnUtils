@@ -1,14 +1,13 @@
 using System.IO;
-using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 
 namespace Assets.NnUtils.Scripts.Editor
 {
-    public class ARMtoMAS : UnityEditor.Editor
+    public class InvertColor : UnityEditor.Editor
     {
-        [MenuItem("Assets/ARM to MAS", false, 101)]
-        private static void ConvertARMtoMAS()
+        [MenuItem("Assets/Invert Color", false, 102)]
+        private static void InvertAllChannels()
         {
             foreach (var obj in Selection.objects)
             {
@@ -34,40 +33,31 @@ namespace Assets.NnUtils.Scripts.Editor
                 // Read the source texture after changing import settings
                 sourceTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(assetPath);
                 
-                // Create a new texture for the MAS format
-                var masTexture = new Texture2D(sourceTexture.width, sourceTexture.height, TextureFormat.RGBA32, false);
+                // Create a new texture with the same format
+                var invertedTexture = new Texture2D(sourceTexture.width, sourceTexture.height, TextureFormat.RGBA32, false);
                 
-                // Convert ARM to MAS
+                // Invert all channels
                 for (var y = 0; y < sourceTexture.height; y++)
                 {
                     for (var x = 0; x < sourceTexture.width; x++)
                     {
                         var pixel = sourceTexture.GetPixel(x, y);
-                        var masPixel = new Color(
-                            pixel.b,       // R = Metal (from B in ARM)
-                            pixel.r,       // G = AO (from R in ARM)
-                            0,             // B = unused
-                            1.0f - pixel.g // A = Smoothness (inverted from G/Roughness in ARM)
+                        var invertedPixel = new Color(
+                            1.0f - pixel.r,  // Invert R
+                            1.0f - pixel.g,  // Invert G
+                            1.0f - pixel.b,  // Invert B
+                            1.0f - pixel.a   // Invert A
                         );
-                        masTexture.SetPixel(x, y, masPixel);
+                        invertedTexture.SetPixel(x, y, invertedPixel);
                     }
                 }
-                masTexture.Apply();
+                invertedTexture.Apply();
                 
                 // Generate the new filename
                 var directory = Path.GetDirectoryName(assetPath);
                 var fileName = Path.GetFileNameWithoutExtension(assetPath);
                 var extension = Path.GetExtension(assetPath);
-                
-                // Replace ARM with MAS (case-insensitive)
-                var newFileName = Regex.Replace(fileName, "arm", "MAS", RegexOptions.IgnoreCase);
-                
-                // If ARM wasn't found, append MAS
-                if (newFileName == fileName)
-                {
-                    newFileName += "_MAS";
-                }
-                
+                var newFileName = fileName + "Inverted";
                 var newPath = Path.Combine(directory, newFileName + extension);
                 
                 // Make sure we don't overwrite existing files
@@ -79,12 +69,12 @@ namespace Assets.NnUtils.Scripts.Editor
                 }
                 
                 // Save the new texture
-                var bytes = masTexture.EncodeToPNG();
+                var bytes = invertedTexture.EncodeToPNG();
                 File.WriteAllBytes(newPath, bytes);
                 AssetDatabase.Refresh();
                 
                 // Clean up
-                DestroyImmediate(masTexture);
+                DestroyImmediate(invertedTexture);
                 
                 // Restore original import settings
                 importer.isReadable         = originalIsReadable;
@@ -101,12 +91,12 @@ namespace Assets.NnUtils.Scripts.Editor
                     AssetDatabase.ImportAsset(newPath);
                 }
                 
-                Debug.Log("Converted " + assetPath + " to " + newPath);
+                Debug.Log("Inverted color of " + assetPath + " to " + newPath);
             }
         }
     
-        [MenuItem("Assets/ARM to MAS", true)]
-        private static bool ValidateConvertARMtoMAS()
+        [MenuItem("Assets/Invert Color", true)]
+        private static bool ValidateInvertAllChannels()
         {
             return Selection.activeObject is Texture2D;
         }
