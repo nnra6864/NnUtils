@@ -16,3 +16,6 @@
 [submodule "Modules/ChannelPacker"]
 	path = Modules/ChannelPacker
 	url = https://github.com/nnra6864/ChannelPacker
+[submodule "Modules/TextureRemapper"]
+	path = Modules/TextureRemapper
+	url = https://github.com/nnra6864/TextureRemapper
