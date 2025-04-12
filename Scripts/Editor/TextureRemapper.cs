@@ -32,7 +32,7 @@ namespace Assets.NnUtils.Scripts.Editor
             }
         }
 
-        [MenuItem("Tools/Texture Remapper")]
+        [MenuItem("NnUtils/Texture Remapper")]
         public static void ShowWindow()
         {
             GetWindow<TextureRemapper>("Texture Remapper");
@@ -54,11 +54,9 @@ namespace Assets.NnUtils.Scripts.Editor
             {
                 // Texture Input
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-                EditorGUILayout.LabelField($"Texture {i + 1}", EditorStyles.boldLabel);
                 _textureMappings[i].Texture = (Texture2D)EditorGUILayout.ObjectField("",
-                    _textureMappings[i].Texture, typeof(Texture2D), false);
+                    _textureMappings[i].Texture, typeof(Texture2D), false, GUILayout.Width(65));
             
-                EditorGUILayout.Space();
                 EditorGUILayout.LabelField("Channel Mappings", EditorStyles.boldLabel);
 
                 for (int j = 0; j < _textureMappings[i].ChannelMappings.Count; j++)
@@ -96,9 +94,10 @@ namespace Assets.NnUtils.Scripts.Editor
                     EditorGUILayout.EndHorizontal();
                 }
                 
+                
                 // Add Mapping Button
-                GUILayout.BeginHorizontal();
-                GUILayout.FlexibleSpace();
+                GUILayout.Space(5);
+                EditorGUILayout.BeginHorizontal();
                 if (GUILayout.Button("Add Mapping", GUILayout.Width(120)))
                 {
                     _textureMappings[i].ChannelMappings.Add(new());
@@ -106,11 +105,8 @@ namespace Assets.NnUtils.Scripts.Editor
                     GUILayout.EndVertical();
                     break;
                 }
-                GUILayout.EndHorizontal();
                 
                 // Remove Texture Button
-                GUILayout.Space(10);
-                EditorGUILayout.BeginHorizontal();
                 GUILayout.FlexibleSpace();
                 if (GUILayout.Button("Remove Texture", GUILayout.Width(120)))
                 {
@@ -120,14 +116,12 @@ namespace Assets.NnUtils.Scripts.Editor
                     break;
                 }
                 EditorGUILayout.EndHorizontal();
-            
                 EditorGUILayout.EndVertical();
-                EditorGUILayout.Space();
             }
                 
             // Add Texture Button
+            GUILayout.Space(5);
             GUILayout.BeginHorizontal();
-            GUILayout.FlexibleSpace();
             if (GUILayout.Button("Add Texture", GUILayout.Width(120))) _textureMappings.Add(new());
             GUILayout.EndHorizontal();
         
