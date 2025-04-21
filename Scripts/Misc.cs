@@ -136,7 +136,14 @@ namespace NnUtils.Scripts
             target = null;
         }
 
+        /// Returns -1 or 1
         public static int RandomInvert => Random.Range(0, 2) == 0 ? 1 : -1;
+        
+        /// Returns a value between -1 and 1
+        public static float Random1 => Random.Range(-1, 1);
+        
+        /// Returns a value between 0 and 1
+        public static float Random01 => Random.Range(0, 1);
 
         public static Vector2 AbsV2(Vector2 input) => new(Mathf.Abs(input.x), Mathf.Abs(input.y));
         public static Vector3 AbsV3(Vector3 input) => new(Mathf.Abs(input.x), Mathf.Abs(input.y), Mathf.Abs(input.z));
