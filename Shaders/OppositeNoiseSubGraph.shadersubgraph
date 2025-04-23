@@ -2037,9 +2037,9 @@
         "m_Position": {
             "serializedVersion": "2",
             "x": -589.0,
-            "y": -104.99999237060547,
+            "y": -105.0,
             "width": 79.0,
-            "height": 77.00000762939453
+            "height": 77.0
         }
     },
     "m_Slots": [
