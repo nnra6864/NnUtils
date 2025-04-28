@@ -11,7 +11,7 @@ namespace NnUtils.Scripts.Editor
         [MenuItem("GameObject/NnUtils/Rename Selected Objects", false, 0)]
         private static void RenameSelectedObjects()
         {
-            if (_mor != null || Selection.objects.Length < 1) return;
+            if (_mor || Selection.objects.Length < 1) return;
             _mor = CreateInstance<MultiObjectRename>();
             _mor.ShowUtility();
         }
