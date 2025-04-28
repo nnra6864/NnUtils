@@ -6,8 +6,8 @@ namespace NnUtils.Scripts.Editor
 {
     public class EditorShortcuts : MonoBehaviour
     {
-        [Shortcut("NewNnScript", KeyCode.S, ShortcutModifiers.Control | ShortcutModifiers.Alt)]
+        [Shortcut("NnUtils/New Script", KeyCode.S, ShortcutModifiers.Control)]
         private static void NewScript() =>
-            ProjectWindowUtil.CreateScriptAssetFromTemplateFile("Assets/NnUtils/Scripts/Editor/NnScriptTemplate.txt", "NnScript.cs");
+            ProjectWindowUtil.CreateScriptAssetFromTemplateFile("Assets/NnUtils/Scripts/Editor/NnScriptTemplate.txt", "Script.cs");
     }
 }
