@@ -8,6 +8,7 @@ namespace NnUtils.Scripts.Editor
     {
         [Shortcut("NnUtils/New Script", KeyCode.S, ShortcutModifiers.Control)]
         private static void NewScript() =>
-            ProjectWindowUtil.CreateScriptAssetFromTemplateFile("Assets/NnUtils/Scripts/Editor/NnScriptTemplate.txt", "Script.cs");
+            ProjectWindowUtil.CreateScriptAssetFromTemplateFile(
+                "Assets/NnUtils/Scripts/Editor/NnScriptTemplate.txt", "Script.cs");
     }
 }
