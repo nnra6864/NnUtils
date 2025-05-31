@@ -19,3 +19,6 @@
 [submodule "Modules/TextureRemapper"]
 	path = Modules/TextureRemapper
 	url = https://github.com/nnra6864/TextureRemapper
+[submodule "Modules/Easings"]
+	path = Modules/Easings
+	url = https://github.com/nnra6864/Easings
