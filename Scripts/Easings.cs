@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace NnUtils.Scripts
 {
-    public static class Easings
+    public static class EasingsObsolete
     {
         public enum Type
         {

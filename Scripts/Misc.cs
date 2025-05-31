@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using NnUtils.Modules.Easings;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
@@ -81,7 +82,7 @@ namespace NnUtils.Scripts
         /// <param name="easingType">Applied easing</param>
         /// <param name="unscaled">Uses <see cref="Time.unscaledDeltaTime"/> if true</param>
         /// <returns>Eased lerp position</returns>
-        public static float Tween(ref float lerpPos, float lerpTime = 1, Easings.Type easingType = Easings.Type.None, bool unscaled = false)
+        public static float Tween(ref float lerpPos, float lerpTime = 1, Easings.Type easingType = Easings.Type.Linear, bool unscaled = false)
         {
             if (lerpTime == 0) lerpPos = 1;
             else lerpPos = Mathf.Clamp01(lerpPos += (unscaled ? Time.unscaledDeltaTime : Time.deltaTime) / lerpTime);
@@ -97,7 +98,7 @@ namespace NnUtils.Scripts
         /// <param name="unscaled">Uses <see cref="Time.unscaledDeltaTime"/> if true</param>
         /// <param name="invertEasing">If ture, easing will be applied to (1 - lerpPos)</param>
         /// <returns>Eased lerp position</returns>
-        public static float ReverseTween(ref float lerpPos, float lerpTime = 1, Easings.Type easingType = Easings.Type.None, bool invertEasing = true, bool unscaled = false)
+        public static float ReverseTween(ref float lerpPos, float lerpTime = 1, Easings.Type easingType = Easings.Type.Linear, bool invertEasing = true, bool unscaled = false)
         {
             if (lerpTime == 0) lerpPos = 0;
             else lerpPos = Mathf.Clamp01(lerpPos -= (unscaled ? Time.unscaledDeltaTime : Time.deltaTime) / lerpTime);

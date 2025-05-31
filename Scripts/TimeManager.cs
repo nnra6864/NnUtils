@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using NnUtils.Modules.Easings;
 using UnityEngine;
 
 namespace NnUtils.Scripts
@@ -54,7 +55,7 @@ namespace NnUtils.Scripts
         public void ChangeTimeScale(float timeScale, float time, AnimationCurve curve)
             => this.RestartRoutine(ref _changeTimeScaleRoutine, ChangeTimeScaleRoutine(timeScale, time, curve: curve));
         
-        private IEnumerator ChangeTimeScaleRoutine(float timeScale, float time, Easings.Type easing = Easings.Type.None, AnimationCurve curve = null)
+        private IEnumerator ChangeTimeScaleRoutine(float timeScale, float time, Easings.Type easing = Easings.Type.Linear, AnimationCurve curve = null)
         {
             var startTimeScale = TimeScale;
             float lerpPos = 0;
@@ -83,7 +84,7 @@ namespace NnUtils.Scripts
                 var startTimeScale = TimeScale;
                 var timeScale = timeScales[i];
                 var time = times.Length - 1 < i ? 0 : times[i];
-                var easing = easings.Length - 1 < i ? Easings.Type.None : easings[i];
+                var easing = easings.Length - 1 < i ? Easings.Type.Linear : easings[i];
                 float lerpPos = 0;
                 while (lerpPos < 1)
                 {
