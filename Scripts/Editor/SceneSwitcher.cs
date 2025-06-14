@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 // Original https://gist.github.com/alexanderameye/c1f99c6b84162697beedc8606027ed9c
 // Edited by nnra
 
@@ -76,13 +78,13 @@ namespace NnUtils.Scripts.Editor
         {
             var content = EditorGUIUtility.TrTextContentWithIcon(
                 SceneManager.GetActiveScene().name, Tooltip, "d_SceneAsset Icon");
-            text    = content.text;
+            text = content.text;
             tooltip = content.tooltip;
-            icon    = content.image as Texture2D;
+            icon = content.image as Texture2D;
 
             // Hacky: the text element is the second one here so we can set the padding
             //        but this is not really robust I think
-            ElementAt(1).style.paddingLeft  = 5;
+            ElementAt(1).style.paddingLeft = 5;
             ElementAt(1).style.paddingRight = 5;
 
             clicked += ToggleDropdown;
@@ -156,3 +158,5 @@ namespace NnUtils.Scripts.Editor
         }
     }
 }
+
+#endif

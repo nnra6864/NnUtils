@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEditor;
 using UnityEngine;
 
@@ -30,7 +32,7 @@ namespace NnUtils.Scripts.UI.Editor
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
-            
+
             EditorGUILayout.PropertyField(_imageProperty, new GUIContent("Image", "Name from ProjectImageManager, local path or URL"));
             EditorGUILayout.PropertyField(_defaultSpriteProperty, new GUIContent("Default Sprite", "Fallback sprite if image is not found"));
             EditorGUILayout.PropertyField(_colorProperty, new GUIContent("Color", "Color applied to the image"));
@@ -39,8 +41,10 @@ namespace NnUtils.Scripts.UI.Editor
             EditorGUILayout.PropertyField(_raycastPaddingProperty, new GUIContent("Raycast Padding", "Padding for the raycast"));
             EditorGUILayout.PropertyField(_maskableProperty, new GUIContent("Maskable", "Whether masks affect the image"));
             EditorGUILayout.PropertyField(_scalingModeProperty, new GUIContent("Scaling Mode", "Scaling mode applied to the image"));
-            
+
             serializedObject.ApplyModifiedProperties();
         }
     }
 }
+
+#endif

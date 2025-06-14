@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEditor;
 using UnityEditor.ShortcutManagement;
 using UnityEngine;
@@ -12,3 +14,5 @@ namespace NnUtils.Scripts.Editor
                 "Assets/NnUtils/Scripts/Editor/NewScriptTemplate.txt", "Script.cs");
     }
 }
+
+#endif

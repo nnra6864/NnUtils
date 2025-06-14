@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEditor;
 
 namespace NnUtils.Scripts.UI.Editor
@@ -19,3 +21,5 @@ namespace NnUtils.Scripts.UI.Editor
         }
     }
 }
+
+#endif
