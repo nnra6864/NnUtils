@@ -244,5 +244,14 @@ namespace NnUtils.Scripts
             // Invoke the onComplete event
             onComplete?.Invoke(downloadedSprite);
         }
+
+        public static void ExecuteNextFrame(this MonoBehaviour sender, Action action) =>
+            sender.StartCoroutine(ExecuteNextFrameRoutine(action));
+
+        private static IEnumerator ExecuteNextFrameRoutine(Action action)
+        {
+            yield return null;
+            action?.Invoke();
+        }
     }
 }
