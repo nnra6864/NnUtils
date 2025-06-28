@@ -77,8 +77,11 @@ namespace Assets.NnUtils.Scripts.MinMax.Editor
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            var attr = attribute as MinMaxAttribute;
             float min, max;
 
+            var name = attr?.Name;
+            label.text = name ?? label.text;
             label = EditorGUI.BeginProperty(position, label, property);
 
             switch (property.propertyType)
@@ -101,8 +104,6 @@ namespace Assets.NnUtils.Scripts.MinMax.Editor
                     EditorGUI.LabelField(position, label, Unsupported);
                     return;
             }
-
-            var attr = attribute as MinMaxAttribute;
 
             var ppp = EditorGUIUtility.pixelsPerPoint;
             var spacing = KSpacing * ppp;
