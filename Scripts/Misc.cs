@@ -20,7 +20,7 @@ namespace NnUtils.Scripts
         public static Vector2 CapVelocityDelta(Vector2 currentVelocity, Vector2 deltaVelocity, float maxSpeed)
         {
             var newVel = currentVelocity + deltaVelocity;
-    
+
             if (newVel.magnitude > maxSpeed && newVel.magnitude > currentVelocity.magnitude)
             {
                 var directionOfChange = (newVel - currentVelocity).normalized;
@@ -30,10 +30,10 @@ namespace NnUtils.Scripts
 
             return deltaVelocity;
         }
-        
+
         #region Is Pointer Over UI
         public static bool IsPointerOverUI => IsPointerOverUIElement(GetEventSystemRaycastResults());
-        
+
         private static bool IsPointerOverUIElement(List<RaycastResult> eventSystemRaycastResults)
         {
             var uiLayer = LayerMask.NameToLayer("UI");
@@ -46,10 +46,10 @@ namespace NnUtils.Scripts
             {
                 position = Input.mousePosition
             };
-            
+
             List<RaycastResult> raycastResults = new();
             EventSystem.current.RaycastAll(eventData, raycastResults);
-            
+
             return raycastResults;
         }
         #endregion
@@ -61,7 +61,7 @@ namespace NnUtils.Scripts
             for (int i = 0; i < args.Length; i++) if (args[i] == name && args.Length > i + 1) return args[i + 1];
             return null;
         }
-        
+
         public static Vector2 CapV2WithinRects(Vector2 vector, float min, float max) =>
             IsValueInRange(vector.x, min, max) && IsValueInRange(vector.y, min, max)
             ? vector
@@ -105,7 +105,7 @@ namespace NnUtils.Scripts
             var t = Easings.Ease(invertEasing ? 1 - lerpPos : lerpPos, easingType);
             return invertEasing ? 1 - t : t;
         }
-        
+
         public static T GetOrAddComponent<T>(this GameObject gameObject) where T : Component
         {
             T component = gameObject.GetComponent<T>();
@@ -124,7 +124,7 @@ namespace NnUtils.Scripts
             if (target != null) return;
             target = sender.StartCoroutine(routine);
         }
-        
+
         public static void RestartRoutine(this MonoBehaviour sender, ref Coroutine target, IEnumerator routine)
         {
             if (target != null) sender.StopCoroutine(target);
@@ -139,12 +139,29 @@ namespace NnUtils.Scripts
 
         /// Returns -1 or 1
         public static int RandomInvert => Random.Range(0, 2) == 0 ? 1 : -1;
-        
+
         /// Returns a value between -1 and 1
         public static float Random1 => Random.Range(-1, 1);
-        
+
         /// Returns a value between 0 and 1
         public static float Random01 => Random.Range(0, 1);
+
+        /// Returns a Vector2 with random values from range
+        public static Vector2 RandomVector2(Vector2 min, Vector2 max) =>
+            new(Random.Range(min.x, max.x), Random.Range(min.y, max.y));
+
+        /// Returns a Vector3 with random values from range
+        public static Vector3 RandomVector3(Vector3 min, Vector3 max) =>
+            new(Random.Range(min.x, max.x), Random.Range(min.y, max.y), Random.Range(min.z, max.z));
+
+        /// Returns a Vector4 with random values from range
+        public static Vector4 RandomVector4(Vector4 min, Vector4 max) =>
+            new(Random.Range(min.x, max.x), Random.Range(min.y, max.y),
+                Random.Range(min.z, max.z), Random.Range(min.w, max.w));
+
+        /// Returns a Quaternion with random values from range
+        public static Quaternion RandomQuaternion(Vector3 min, Vector3 max) =>
+            Quaternion.Euler(RandomVector3(min, max));
 
         public static Vector2 AbsV2(Vector2 input) => new(Mathf.Abs(input.x), Mathf.Abs(input.y));
         public static Vector3 AbsV3(Vector3 input) => new(Mathf.Abs(input.x), Mathf.Abs(input.y), Mathf.Abs(input.z));
@@ -162,8 +179,6 @@ namespace NnUtils.Scripts
             if (Input.touchCount > touchIndex) pos = Input.GetTouch(touchIndex).position;
             return pos;
         }
-        
-        public static Quaternion VectorToQuaternion(Vector3 vec) => Quaternion.Euler(vec.x, vec.y, vec.z);
 
         public static float RadialSelection()
         {
@@ -174,7 +189,7 @@ namespace NnUtils.Scripts
             angle += angle < 0 ? 360 : 0;
             return 360 - angle;
         }
-        
+
         public static float RadialSelection(Vector2 centerPos)
         {
             Vector2 mousePos = Input.mousePosition;
@@ -188,7 +203,7 @@ namespace NnUtils.Scripts
         {
             // Return if null
             if (string.IsNullOrEmpty(path)) return null;
-            
+
             // Replace the relative with absolute path
             path = path.Replace("~", Environment.GetFolderPath(Environment.SpecialFolder.Personal));
 
@@ -198,15 +213,15 @@ namespace NnUtils.Scripts
             // Read image data and store it into a Texture2D
             var data = File.ReadAllBytes(path);
             Texture2D tex = new(0, 0);
-            
+
             return !tex.LoadImage(data) ? null : tex;
         }
-        
+
         public static Sprite Texture2DToSprite(Texture2D texture) =>
             texture == null ? null : Sprite.Create(texture, new(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
 
         public static Sprite SpriteFromFile(string path) => Texture2DToSprite(TexFromFile(path));
-        
+
         /// <summary>
         /// Downloads a sprite from a URL and returns it through a callback when complete.
         /// <example>
@@ -228,7 +243,7 @@ namespace NnUtils.Scripts
         {
             // Return if no url is provided
             if (string.IsNullOrEmpty(url)) yield break;
-            
+
             // Create a request and wait for it
             var request = UnityWebRequestTexture.GetTexture(url);
             yield return request.SendWebRequest();
@@ -240,7 +255,7 @@ namespace NnUtils.Scripts
                 var downloadedTexture = DownloadHandlerTexture.GetContent(request);
                 downloadedSprite = Sprite.Create(downloadedTexture, new(0, 0, downloadedTexture.width, downloadedTexture.height), new(0.5f, 0.5f));
             }
-        
+
             // Invoke the onComplete event
             onComplete?.Invoke(downloadedSprite);
         }
