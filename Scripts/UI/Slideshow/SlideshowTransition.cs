@@ -8,17 +8,17 @@ namespace NnUtils.Scripts.UI.Slideshow
     {
         public SlideshowTransitionType TransitionType;
         public float Duration;
-        public Easings.Type Easing;
+        public EasingType Easing;
 
-        public SlideshowTransition() : this(SlideshowTransitionType.None, 0, Easings.Type.Linear) { }
-        
-        public SlideshowTransition(SlideshowTransitionType transitionType, float duration, Easings.Type easing)
+        public SlideshowTransition() : this(SlideshowTransitionType.None, 0, EasingType.Linear) { }
+
+        public SlideshowTransition(SlideshowTransitionType transitionType, float duration, EasingType easing)
         {
             TransitionType = transitionType;
             Duration = duration;
             Easing = easing;
         }
-        
-        
+
+
     }
 }

@@ -82,11 +82,11 @@ namespace NnUtils.Scripts
         /// <param name="easingType">Applied easing</param>
         /// <param name="unscaled">Uses <see cref="Time.unscaledDeltaTime"/> if true</param>
         /// <returns>Eased lerp position</returns>
-        public static float Tween(ref float lerpPos, float lerpTime = 1, Easings.Type easingType = Easings.Type.Linear, bool unscaled = false)
+        public static float Tween(ref float lerpPos, float lerpTime = 1, EasingType easingType = EasingType.Linear, bool unscaled = false)
         {
             if (lerpTime == 0) lerpPos = 1;
             else lerpPos = Mathf.Clamp01(lerpPos += (unscaled ? Time.unscaledDeltaTime : Time.deltaTime) / lerpTime);
-            return Easings.Ease(lerpPos, easingType);
+            return EasingFunctions.Ease(lerpPos, easingType);
         }
 
         /// <summary>
@@ -98,11 +98,11 @@ namespace NnUtils.Scripts
         /// <param name="unscaled">Uses <see cref="Time.unscaledDeltaTime"/> if true</param>
         /// <param name="invertEasing">If ture, easing will be applied to (1 - lerpPos)</param>
         /// <returns>Eased lerp position</returns>
-        public static float ReverseTween(ref float lerpPos, float lerpTime = 1, Easings.Type easingType = Easings.Type.Linear, bool invertEasing = true, bool unscaled = false)
+        public static float ReverseTween(ref float lerpPos, float lerpTime = 1, EasingType easingType = EasingType.Linear, bool invertEasing = true, bool unscaled = false)
         {
             if (lerpTime == 0) lerpPos = 0;
             else lerpPos = Mathf.Clamp01(lerpPos -= (unscaled ? Time.unscaledDeltaTime : Time.deltaTime) / lerpTime);
-            var t = Easings.Ease(invertEasing ? 1 - lerpPos : lerpPos, easingType);
+            var t = EasingFunctions.Ease(invertEasing ? 1 - lerpPos : lerpPos, easingType);
             return invertEasing ? 1 - t : t;
         }
 

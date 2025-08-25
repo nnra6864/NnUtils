@@ -12,12 +12,12 @@ namespace NnUtils.Scripts
     {
         private float _fixedTimeStep;
         private Coroutine _changeTimeScaleRoutine;
-        
+
         /// <summary>
         /// Set to true when the game is paused to pause transitions
         /// </summary>
         public bool IsPaused;
-        
+
         /// <summary>
         /// Set via <see cref="ChangeTimeScale(float, float)"/> function
         /// <returns><see cref="Time.timeScale"/></returns>
@@ -45,17 +45,17 @@ namespace NnUtils.Scripts
         /// Invoked when using <see cref="ChangeTimeScale(float[],float[])"/> and all the TimeScales have been applied
         /// </summary>
         public Action OnTimeScalesTransitioned;
-        
+
         private void Awake() => _fixedTimeStep = Time.fixedDeltaTime;
-        
+
         public void ChangeTimeScale(float timeScale, float time = 0)
             => this.RestartRoutine(ref _changeTimeScaleRoutine, ChangeTimeScaleRoutine(timeScale, time));
-        public void ChangeTimeScale(float timeScale, float time, Easings.Type easing)
+        public void ChangeTimeScale(float timeScale, float time, EasingType easing)
             => this.RestartRoutine(ref _changeTimeScaleRoutine, ChangeTimeScaleRoutine(timeScale, time, easing));
         public void ChangeTimeScale(float timeScale, float time, AnimationCurve curve)
             => this.RestartRoutine(ref _changeTimeScaleRoutine, ChangeTimeScaleRoutine(timeScale, time, curve: curve));
-        
-        private IEnumerator ChangeTimeScaleRoutine(float timeScale, float time, Easings.Type easing = Easings.Type.Linear, AnimationCurve curve = null)
+
+        private IEnumerator ChangeTimeScaleRoutine(float timeScale, float time, EasingType easing = EasingType.Linear, AnimationCurve curve = null)
         {
             var startTimeScale = TimeScale;
             float lerpPos = 0;
@@ -69,22 +69,22 @@ namespace NnUtils.Scripts
             _changeTimeScaleRoutine = null;
             OnTimeScaleTransitioned?.Invoke();
         }
-        
+
         public void ChangeTimeScale(float[] timeScales, float[] times)
-            => this.RestartRoutine(ref _changeTimeScaleRoutine, ChangeTimeScaleRoutine(timeScales, times, new Easings.Type[]{}));
-        public void ChangeTimeScale(float[] timeScales, float[] times, Easings.Type[] easings)
+            => this.RestartRoutine(ref _changeTimeScaleRoutine, ChangeTimeScaleRoutine(timeScales, times, new EasingType[] { }));
+        public void ChangeTimeScale(float[] timeScales, float[] times, EasingType[] easings)
             => this.RestartRoutine(ref _changeTimeScaleRoutine, ChangeTimeScaleRoutine(timeScales, times, easings));
         public void ChangeTimeScale(float[] timeScales, float[] times, AnimationCurve[] curves)
             => this.RestartRoutine(ref _changeTimeScaleRoutine, ChangeTimeScaleRoutine(timeScales, times, curves: curves));
-        
-        private IEnumerator ChangeTimeScaleRoutine(float[] timeScales, float[] times, Easings.Type[] easings = null, AnimationCurve[] curves = null)
+
+        private IEnumerator ChangeTimeScaleRoutine(float[] timeScales, float[] times, EasingType[] easings = null, AnimationCurve[] curves = null)
         {
             for (int i = 0; i < timeScales.Length; i++)
             {
                 var startTimeScale = TimeScale;
                 var timeScale = timeScales[i];
                 var time = times.Length - 1 < i ? 0 : times[i];
-                var easing = easings.Length - 1 < i ? Easings.Type.Linear : easings[i];
+                var easing = easings.Length - 1 < i ? EasingType.Linear : easings[i];
                 float lerpPos = 0;
                 while (lerpPos < 1)
                 {
