@@ -89,7 +89,7 @@ namespace NnUtils.Scripts
                 while (lerpPos < 1)
                 {
                     if (IsPaused) { yield return null; continue; }
-                    var t = curves == null ? Misc.Tween(ref lerpPos, time, easing, true) : curves[i].Evaluate(Misc.Tween(ref lerpPos, time, unscaled: true));
+                    var t = curves == null ? Misc.Tween(ref lerpPos, time, easing, unscaled: true) : curves[i].Evaluate(Misc.Tween(ref lerpPos, time, unscaled: true));
                     TimeScale = Mathf.LerpUnclamped(startTimeScale, timeScale, t);
                     yield return null;
                 }
